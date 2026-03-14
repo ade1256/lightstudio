@@ -2,12 +2,18 @@ import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { navLinks } from "@/data/site-data";
 
+const highlights = [
+  "Konsep visual disusun sebelum sesi dimulai",
+  "Warna kulit natural + retouch premium",
+  "Booking ringkas, minim bolak-balik chat",
+];
+
 export function HeroSection() {
   return (
     <header className="relative isolate overflow-hidden border-b border-[var(--line)]">
       <Image
-        src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=2000&q=80"
-        alt="Photographer directing model in studio"
+        src="https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=2000&q=80"
+        alt="Studio portrait lighting setup"
         fill
         priority
         className="absolute inset-0 h-full w-full object-cover"
@@ -28,27 +34,29 @@ export function HeroSection() {
           </ul>
         </nav>
 
-        <div className="grid min-h-[80vh] items-end py-12 lg:grid-cols-[1.2fr_0.8fr] lg:py-18">
+        <div className="grid min-h-[80vh] items-end py-12 lg:grid-cols-[1.05fr_0.95fr] lg:py-18">
           <div className="max-w-3xl">
-            <p className="mb-5 w-fit border border-white/28 bg-black/15 px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.2em]">
-              Studio Photography • Jakarta
+            <p className="mb-4 w-fit border border-white/28 bg-black/15 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-[oklch(0.9_0.01_190)]">
+              Premium studio experience
             </p>
-            <h1 className="text-[clamp(2.7rem,8vw,6.8rem)] leading-[0.88]">
-              Booking Foto Studio
+            <h1 className="text-[clamp(2.7rem,8vw,6.3rem)] leading-[0.88]">
+              Booking foto studio
               <br />
-              <span className="text-[var(--brand)]">cepat, hasil premium.</span>
+              cepat, hasil
+              <br />
+              <span className="text-[var(--brand)]">premium.</span>
             </h1>
             <p className="mt-6 max-w-[58ch] text-base leading-relaxed text-[oklch(0.92_0.01_190)] sm:text-lg">
-              Untuk klien yang ingin proses ringkas tanpa mengorbankan kualitas visual. Cek portfolio, pilih paket,
-              lalu booking dalam hitungan menit.
+              Cek kualitas portofolio, pilih paket, lalu booking dalam hitungan menit. Dibuat untuk klien yang ingin
+              proses ringkas tanpa kompromi kualitas.
             </p>
 
-            <div className="mt-10 flex flex-wrap gap-4">
+            <div className="mt-9 flex flex-wrap gap-4">
               <a
                 href="#booking"
                 className="rounded-full bg-[var(--brand)] px-7 py-3 text-sm font-semibold tracking-wide text-[var(--brand-ink)] transition hover:brightness-110"
               >
-                Book Sekarang
+                Mulai Booking
               </a>
               <a
                 href="#portfolio"
@@ -60,15 +68,12 @@ export function HeroSection() {
           </div>
 
           <aside className="mt-10 border border-white/25 bg-black/25 p-6 backdrop-blur-sm lg:mt-0">
-            <p className="text-xs uppercase tracking-[0.2em] text-[oklch(0.9_0.01_190)]">Fast booking lane</p>
-            <ol className="mt-4 space-y-3 text-sm text-[oklch(0.94_0.01_190)]">
-              <li>1. Pilih paket sesuai kebutuhan</li>
-              <li>2. Tentukan tanggal sesi</li>
-              <li>3. Konfirmasi via WhatsApp</li>
-            </ol>
-            <p className="mt-5 border-t border-white/20 pt-4 text-sm text-[oklch(0.9_0.01_190)]">
-              Respon admin rata-rata &lt; 15 menit pada jam operasional.
-            </p>
+            <p className="text-xs uppercase tracking-[0.2em] text-[oklch(0.9_0.01_190)]">Kenapa Lightstudio</p>
+            <ul className="mt-4 space-y-3 text-sm text-[oklch(0.94_0.01_190)]">
+              {highlights.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
           </aside>
         </div>
       </Container>
