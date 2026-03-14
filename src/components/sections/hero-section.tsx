@@ -1,78 +1,51 @@
 import Image from "next/image";
 import { Container } from "@/components/ui/container";
 
-const highlights = [
-  "Konsep visual disusun sebelum sesi dimulai",
-  "Warna kulit natural + retouch premium",
-  "Booking ringkas, minim bolak-balik chat",
-];
-
 export function HeroSection() {
   return (
-    <header className="relative isolate overflow-hidden border-b border-[var(--line)]">
+    <section className="relative isolate overflow-hidden border-b border-[var(--line)]">
       <Image
-        src="https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=2000&q=80"
-        alt="Studio portrait lighting setup"
+        src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=2200&q=80"
+        alt="Photographer directing studio portrait"
         fill
         priority
         className="absolute inset-0 h-full w-full object-cover"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(102deg,oklch(0.13_0.02_190)/0.9,oklch(0.2_0.02_190)/0.74_48%,oklch(0.35_0.03_190)/0.22)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(102deg,oklch(0.13_0.02_190)/0.86,oklch(0.2_0.02_190)/0.72_48%,oklch(0.35_0.03_190)/0.2)]" />
 
-      <Container className="relative min-h-[94vh] py-6 text-[oklch(0.96_0.006_190)]">
-        <nav className="flex items-center justify-between border-b border-white/20 pb-5">
-          <p className="font-display text-[clamp(1.7rem,2vw,2.2rem)] tracking-wide">Lightstudio</p>
-          <a
-            href="#booking"
-            className="rounded-full border border-[var(--brand)] bg-[var(--brand)] px-5 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[var(--brand-ink)]"
-          >
-            Book now
-          </a>
-        </nav>
+      <Container className="relative py-16 sm:py-20 lg:py-28">
+        <div className="max-w-3xl text-[oklch(0.96_0.008_190)]">
+          <p className="mb-4 w-fit border border-white/30 bg-black/20 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.2em]">
+            Lightstudio Jakarta
+          </p>
+          <h1 className="text-[clamp(2.4rem,7vw,5.8rem)] leading-[0.9]">
+            Booking studio foto
+            <br />
+            cepat, hasil
+            <br />
+            <span className="text-[var(--brand)]">premium.</span>
+          </h1>
+          <p className="mt-5 max-w-[58ch] text-base leading-relaxed text-[oklch(0.92_0.01_190)] sm:text-lg">
+            Cek kualitas portofolio, pilih paket, lalu booking langsung via WhatsApp. Ringkas untuk klien, rapi untuk
+            hasil akhir.
+          </p>
 
-        <div className="grid min-h-[80vh] items-end py-12 lg:grid-cols-[1.05fr_0.95fr] lg:py-18">
-          <div className="max-w-3xl">
-            <p className="mb-4 w-fit border border-white/28 bg-black/15 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-[oklch(0.9_0.01_190)]">
-              Premium studio experience
-            </p>
-            <h1 className="text-[clamp(2.7rem,8vw,6.3rem)] leading-[0.88]">
-              Booking foto studio
-              <br />
-              cepat, hasil
-              <br />
-              <span className="text-[var(--brand)]">premium.</span>
-            </h1>
-            <p className="mt-6 max-w-[58ch] text-base leading-relaxed text-[oklch(0.92_0.01_190)] sm:text-lg">
-              Cek kualitas portofolio, pilih paket, lalu booking dalam hitungan menit. Dibuat untuk klien yang ingin
-              proses ringkas tanpa kompromi kualitas.
-            </p>
-
-            <div className="mt-9 flex flex-wrap gap-4">
-              <a
-                href="#booking"
-                className="rounded-full bg-[var(--brand)] px-7 py-3 text-sm font-semibold tracking-wide text-[var(--brand-ink)] transition hover:brightness-110"
-              >
-                Mulai Booking
-              </a>
-              <a
-                href="#portfolio"
-                className="rounded-full border border-white/45 bg-black/10 px-7 py-3 text-sm font-medium tracking-wide transition hover:border-[var(--brand)]"
-              >
-                Lihat Portfolio
-              </a>
-            </div>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <a
+              href="#booking"
+              className="rounded-full bg-[var(--brand)] px-7 py-3 text-sm font-semibold tracking-wide text-[var(--brand-ink)] transition hover:brightness-110"
+            >
+              Booking via WhatsApp
+            </a>
+            <a
+              href="#portfolio"
+              className="rounded-full border border-white/45 bg-black/10 px-7 py-3 text-sm font-medium tracking-wide transition hover:border-[var(--brand)]"
+            >
+              Lihat Portfolio
+            </a>
           </div>
-
-          <aside className="mt-10 border border-white/25 bg-black/25 p-6 backdrop-blur-sm lg:mt-0">
-            <p className="text-xs uppercase tracking-[0.2em] text-[oklch(0.9_0.01_190)]">Kenapa Lightstudio</p>
-            <ul className="mt-4 space-y-3 text-sm text-[oklch(0.94_0.01_190)]">
-              {highlights.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </aside>
         </div>
       </Container>
-    </header>
+    </section>
   );
 }
