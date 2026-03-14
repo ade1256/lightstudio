@@ -11,7 +11,6 @@
   --line: oklch(0.86 0.01 190);
 }
 
-
 @theme inline {
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
@@ -28,12 +27,28 @@ body {
 }
 
 body {
-  background:
-    radial-gradient(circle at 12% 8%, color-mix(in oklab, var(--brand) 10%, transparent), transparent 28%),
-    radial-gradient(circle at 86% 26%, color-mix(in oklab, var(--brand) 12%, transparent), transparent 24%),
-    var(--background);
+  background: var(--background);
   color: var(--text);
   font-family: var(--font-sans), sans-serif;
+}
+
+.site-background {
+  background:
+    radial-gradient(circle at 10% 4%, color-mix(in oklab, var(--brand) 16%, transparent), transparent 26%),
+    radial-gradient(circle at 88% 12%, color-mix(in oklab, var(--brand) 12%, transparent), transparent 24%),
+    radial-gradient(circle at 50% 100%, color-mix(in oklab, var(--brand) 8%, transparent), transparent 34%),
+    linear-gradient(165deg, oklch(0.985 0.004 188) 0%, oklch(0.97 0.006 185) 42%, oklch(0.982 0.003 186) 100%);
+}
+
+.section-gradient-soft {
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--surface) 86%, var(--brand) 14%), var(--surface));
+}
+
+.section-gradient-brand {
+  background:
+    radial-gradient(circle at 82% 16%, color-mix(in oklab, var(--brand) 24%, transparent), transparent 36%),
+    linear-gradient(175deg, color-mix(in oklab, var(--brand) 10%, var(--surface)), var(--surface));
 }
 
 h1,

@@ -5,7 +5,7 @@ import { pricingTiers } from "@/data/site-data";
 
 export function PricingSection() {
   return (
-    <section id="pricing" className="py-[clamp(4.2rem,8vw,7rem)]">
+    <section id="pricing" className="section-gradient-soft py-[clamp(4.2rem,8vw,7rem)]">
       <Container>
         <SectionHeading
           eyebrow="Paket Harga"

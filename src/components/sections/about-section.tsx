@@ -12,7 +12,7 @@ const expertise = [
 
 export function AboutSection() {
   return (
-    <section id="about" className="border-y border-[var(--line)] bg-[var(--surface)] py-[clamp(4rem,8vw,7rem)]">
+    <section id="about" className="section-gradient-brand border-y border-[var(--line)] py-[clamp(4rem,8vw,7rem)]">
       <Container className="grid items-start gap-10 lg:grid-cols-[1.05fr_0.95fr]">
         <div>
           <SectionHeading

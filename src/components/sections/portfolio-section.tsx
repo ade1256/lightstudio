@@ -18,7 +18,7 @@ export function PortfolioSection() {
   );
 
   return (
-    <section id="portfolio" className="py-[clamp(4.2rem,8vw,7.5rem)]">
+    <section id="portfolio" className="section-gradient-soft py-[clamp(4.2rem,8vw,7.5rem)]">
       <Container>
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <SectionHeading
