@@ -1,130 +1,63 @@
-"use client";
-
-import { FormEvent, useState } from "react";
+import { CheckCircle2, Clock3, MessageCircleMore, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 
-const services = ["Portrait Session", "Wedding Coverage", "Graduation Session", "Family Session", "Product Shoot"];
+const bookingSteps = [
+  "Klik tombol WhatsApp",
+  "Kirim tanggal + jenis sesi",
+  "Tim Lightstudio konfirmasi jadwal dan harga final",
+];
 
 export function BookingSection() {
-  const [status, setStatus] = useState<"idle" | "error" | "success">("idle");
-
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const required = ["name", "email", "phone", "service", "date"];
-    const hasMissing = required.some((field) => !String(formData.get(field) ?? "").trim());
-
-    if (hasMissing) {
-      setStatus("error");
-      return;
-    }
-
-    event.currentTarget.reset();
-    setStatus("success");
-  };
-
   return (
-    <section id="booking" className="py-[clamp(4.2rem,8vw,7rem)]">
-      <Container className="grid gap-10 lg:grid-cols-[0.88fr_1.12fr]">
+    <section id="booking" className="section-gradient-brand py-[clamp(4.2rem,8vw,7rem)]">
+      <Container className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
         <div>
           <SectionHeading
-            eyebrow="Booking"
-            title="Isi form singkat, tim kami follow up cepat"
-            description="Prioritas kami: proses booking yang simpel, jelas, dan minim bolak-balik chat."
+            eyebrow="Booking via WhatsApp"
+            title="Tanpa form. Booking langsung lewat chat."
+            description="Kami sederhanakan alur booking supaya cepat: langsung WhatsApp, langsung dapat respon dari tim studio."
           />
 
-          <a
-            href="https://wa.me/6281234567890"
-            target="_blank"
-            rel="noreferrer"
-            className="mt-8 inline-flex border border-[var(--brand)] bg-[var(--brand)] px-6 py-3 text-sm font-semibold tracking-wide text-[var(--brand-ink)] transition hover:brightness-110"
-          >
-            Booking via WhatsApp
-          </a>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href="https://wa.me/6281234567890?text=Halo%20Lightstudio,%20saya%20ingin%20booking%20sesi%20foto."
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--brand)] bg-[var(--brand)] px-7 py-3 text-sm font-semibold tracking-wide text-[var(--brand-ink)] transition hover:brightness-110"
+            >
+              <MessageCircleMore className="h-4 w-4" /> Chat WhatsApp Sekarang
+            </a>
+          </div>
         </div>
 
-        <form onSubmit={onSubmit} className="space-y-4 border border-[var(--line)] bg-[var(--surface)] p-6 sm:p-7" noValidate>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Input label="Nama" name="name" required />
-            <Input label="Email" name="email" type="email" required />
-            <Input label="Nomor WhatsApp" name="phone" required />
-            <div>
-              <label htmlFor="service" className="mb-1.5 block text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
-                Jenis Sesi
-              </label>
-              <select
-                id="service"
-                name="service"
-                required
-                className="w-full border border-[var(--line)] bg-transparent px-3 py-2.5 text-sm text-[var(--text)] outline-none focus:border-[var(--brand)]"
-              >
-                <option value="">Pilih layanan</option>
-                {services.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
+        <aside className="border border-[var(--line)] bg-[var(--surface)] p-6 sm:p-7">
+          <p className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-[var(--muted)]">Alur cepat</p>
 
-          <Input label="Tanggal yang diinginkan" name="date" type="date" required />
+          <ol className="mt-4 space-y-3">
+            {bookingSteps.map((item, idx) => (
+              <li key={item} className="flex gap-3 text-sm leading-relaxed text-[var(--muted)]">
+                <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[color-mix(in_oklab,var(--brand)_18%,transparent)] text-[0.68rem] font-bold text-[var(--brand)]">
+                  {idx + 1}
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ol>
 
-          <div>
-            <label htmlFor="message" className="mb-1.5 block text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
-              Brief singkat
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              rows={4}
-              className="w-full border border-[var(--line)] bg-transparent px-3 py-2 text-sm text-[var(--text)] outline-none focus:border-[var(--brand)]"
-              placeholder="Contoh: sesi 2 orang, tone clean, untuk prewedding casual"
-            />
-          </div>
-
-          <button type="submit" className="bg-[var(--text)] px-6 py-3 text-sm font-medium tracking-wide text-[var(--background)] transition hover:opacity-90">
-            Kirim Permintaan Booking
-          </button>
-
-          {status === "error" ? (
-            <p role="alert" className="text-sm text-[oklch(0.62_0.2_25)]">
-              Mohon lengkapi semua field wajib terlebih dulu.
+          <div className="mt-6 grid gap-2 border-t border-[var(--line)] pt-5 text-sm text-[var(--muted)]">
+            <p className="flex items-center gap-2">
+              <Clock3 className="h-4 w-4 text-[var(--brand)]" /> Respon cepat di jam operasional
             </p>
-          ) : null}
-
-          {status === "success" ? (
-            <p role="status" className="text-sm text-[var(--brand)]">
-              Terima kasih! Permintaan booking kamu sudah masuk.
+            <p className="flex items-center gap-2">
+              <ShieldCheck className="h-4 w-4 text-[var(--brand)]" /> Detail kebutuhan klien dijaga privat
             </p>
-          ) : null}
-        </form>
+            <p className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-[var(--brand)]" /> Konfirmasi slot sebelum pembayaran
+            </p>
+          </div>
+        </aside>
       </Container>
     </section>
-  );
-}
-
-interface InputProps {
-  label: string;
-  name: string;
-  required?: boolean;
-  type?: string;
-}
-
-function Input({ label, name, required = false, type = "text" }: InputProps) {
-  return (
-    <div>
-      <label htmlFor={name} className="mb-1.5 block text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
-        {label}
-      </label>
-      <input
-        id={name}
-        name={name}
-        type={type}
-        required={required}
-        className="w-full border border-[var(--line)] bg-transparent px-3 py-2.5 text-sm text-[var(--text)] outline-none focus:border-[var(--brand)]"
-      />
-    </div>
   );
 }
