@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Container } from "@/components/ui/container";
-import { navLinks } from "@/data/site-data";
 
 const highlights = [
   "Konsep visual disusun sebelum sesi dimulai",
@@ -23,15 +22,12 @@ export function HeroSection() {
       <Container className="relative min-h-[94vh] py-6 text-[oklch(0.96_0.006_190)]">
         <nav className="flex items-center justify-between border-b border-white/20 pb-5">
           <p className="font-display text-[clamp(1.7rem,2vw,2.2rem)] tracking-wide">Lightstudio</p>
-          <ul className="hidden items-center gap-7 text-sm md:flex">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                <a className="border-b border-transparent pb-1 transition hover:border-[var(--brand)]" href={link.href}>
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <a
+            href="#booking"
+            className="rounded-full border border-[var(--brand)] bg-[var(--brand)] px-5 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[var(--brand-ink)]"
+          >
+            Book now
+          </a>
         </nav>
 
         <div className="grid min-h-[80vh] items-end py-12 lg:grid-cols-[1.05fr_0.95fr] lg:py-18">
