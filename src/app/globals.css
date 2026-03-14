@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: oklch(0.98 0.005 80);
-  --foreground: oklch(0.2 0.02 55);
+  --background: oklch(0.985 0.007 78);
+  --foreground: oklch(0.2 0.03 42);
+  --paper: oklch(0.97 0.01 82);
+  --ink-soft: oklch(0.42 0.02 52);
+  --accent: oklch(0.62 0.09 34);
+  --accent-deep: oklch(0.44 0.12 32);
 }
 
 @theme inline {
@@ -16,11 +20,18 @@
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
-  background: var(--background);
+  padding: 0;
+}
+
+body {
+  background: radial-gradient(circle at 92% 2%, oklch(0.92 0.03 40 / 0.45), transparent 32%),
+    radial-gradient(circle at 8% 30%, oklch(0.95 0.02 85 / 0.5), transparent 30%), var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), sans-serif;
+  line-height: 1.45;
 }
 
 h1,
@@ -41,4 +52,18 @@ input,
 select,
 textarea {
   font: inherit;
+}
+
+.editorial-divider {
+  position: relative;
+}
+
+.editorial-divider::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.9rem;
+  height: 2px;
+  width: 3.5rem;
+  background: linear-gradient(90deg, var(--accent-deep), transparent);
 }

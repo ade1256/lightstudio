@@ -22,7 +22,7 @@ export function PortfolioSection() {
   const selectedItem = portfolioItems.find((item) => item.id === selectedId) ?? null;
 
   return (
-    <section id="portfolio" className="bg-[oklch(0.97_0.01_80)] py-24 sm:py-28">
+    <section id="portfolio" className="relative bg-[oklch(0.97_0.01_82)] py-[clamp(4.5rem,9vw,8rem)]">
       <Container>
         <SectionHeading
           eyebrow="Selected Work"
@@ -31,15 +31,15 @@ export function PortfolioSection() {
           align="center"
         />
 
-        <div className="mt-10 flex flex-wrap justify-center gap-2">
+        <div className="mt-11 flex flex-wrap justify-center gap-2.5">
           {portfolioCategories.map((category) => (
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`rounded-full px-4 py-2 text-xs tracking-wide transition sm:text-sm ${
+              className={`rounded-full border px-4 py-2 text-xs font-medium tracking-wide transition sm:text-sm ${
                 activeCategory === category
-                  ? "bg-[oklch(0.23_0.03_58)] text-[oklch(0.96_0.01_80)]"
-                  : "bg-[oklch(0.93_0.01_80)] text-[oklch(0.35_0.02_58)] hover:bg-[oklch(0.9_0.02_75)]"
+                  ? "border-[oklch(0.45_0.12_32)] bg-[oklch(0.45_0.12_32)] text-[oklch(0.98_0.01_85)]"
+                  : "border-[oklch(0.82_0.02_68)] text-[oklch(0.36_0.02_52)] hover:border-[oklch(0.58_0.07_38)] hover:text-[oklch(0.26_0.04_42)]"
               }`}
             >
               {category}
@@ -47,7 +47,7 @@ export function PortfolioSection() {
           ))}
         </div>
 
-        <div className="mt-10 columns-1 gap-4 sm:columns-2 lg:columns-3">
+        <div className="mt-11 columns-1 gap-5 sm:columns-2 lg:columns-3">
           {filteredItems.map((item, idx) => (
             <motion.button
               key={item.id}
@@ -56,7 +56,7 @@ export function PortfolioSection() {
               viewport={{ once: true, margin: "-20%" }}
               transition={{ duration: 0.45, delay: idx * 0.03 }}
               onClick={() => setSelectedId(item.id)}
-              className="group relative mb-4 block w-full overflow-hidden"
+              className="group relative mb-5 block w-full overflow-hidden"
             >
               <Image
                 src={item.src}
@@ -64,9 +64,9 @@ export function PortfolioSection() {
                 width={item.width}
                 height={item.height}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="h-auto w-full rounded-sm object-cover transition duration-700 group-hover:scale-[1.025]"
+                className="h-auto w-full object-cover transition duration-700 group-hover:scale-[1.03]"
               />
-              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/50 to-transparent p-4 text-left text-sm text-white opacity-0 transition group-hover:opacity-100">
+              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[oklch(0.16_0.03_40/0.88)] to-transparent p-4 text-left text-sm text-white opacity-0 transition group-hover:opacity-100">
                 {item.title}
               </span>
             </motion.button>
@@ -81,21 +81,21 @@ export function PortfolioSection() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedId(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[oklch(0.12_0.02_40/0.87)] p-4"
           >
             <motion.div
               initial={{ scale: 0.96, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.96, opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="relative max-h-[90vh] max-w-5xl"
+              className="relative max-h-[90vh] max-w-5xl border border-white/20"
             >
               <Image
                 src={selectedItem.src}
                 alt={selectedItem.alt}
                 width={selectedItem.width}
                 height={selectedItem.height}
-                className="max-h-[90vh] w-auto rounded-md object-contain"
+                className="max-h-[90vh] w-auto object-contain"
               />
             </motion.div>
           </motion.div>

@@ -5,8 +5,9 @@ import { pricingTiers } from "@/data/site-data";
 
 export function PricingSection() {
   return (
-    <section id="pricing" className="bg-[oklch(0.965_0.01_75)] py-24 sm:py-28">
-      <Container>
+    <section id="pricing" className="relative overflow-hidden border-y border-[oklch(0.84_0.02_70)] bg-[oklch(0.955_0.012_76)] py-[clamp(4.5rem,8vw,7.2rem)]">
+      <div className="pointer-events-none absolute -right-20 top-8 h-64 w-64 rounded-full bg-[oklch(0.89_0.07_36/0.35)] blur-3xl" />
+      <Container className="relative">
         <SectionHeading
           eyebrow="Pricing"
           title="Simple packages, premium output"
@@ -14,37 +15,37 @@ export function PricingSection() {
           align="center"
         />
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
           {pricingTiers.map((tier) => (
             <article
               key={tier.name}
               className={`relative border p-7 ${
                 tier.recommended
-                  ? "border-[oklch(0.62_0.06_68)] bg-[oklch(0.99_0.01_80)] shadow-[0_18px_60px_-35px_oklch(0.5_0.05_68/0.45)]"
-                  : "border-[oklch(0.88_0.01_75)] bg-[oklch(0.985_0.003_82)]"
+                  ? "-translate-y-1 border-[oklch(0.46_0.11_34)] bg-[oklch(0.98_0.01_82)] shadow-[0_22px_58px_-36px_oklch(0.42_0.12_34/0.48)]"
+                  : "border-[oklch(0.83_0.02_70)] bg-[oklch(0.97_0.008_82)]"
               }`}
             >
               {tier.recommended ? (
-                <span className="absolute -top-3 left-6 rounded-full bg-[oklch(0.62_0.06_68)] px-3 py-1 text-xs text-white">
+                <span className="absolute -top-3 left-6 bg-[oklch(0.46_0.11_34)] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[oklch(0.98_0.008_82)]">
                   Recommended
                 </span>
               ) : null}
-              <p className="text-sm uppercase tracking-widest text-[oklch(0.45_0.02_60)]">{tier.name}</p>
-              <p className="mt-3 font-display text-5xl text-[oklch(0.2_0.02_55)]">{tier.price}</p>
-              <p className="mt-2 text-sm text-[oklch(0.45_0.02_60)]">{tier.duration}</p>
-              <ul className="mt-6 space-y-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[oklch(0.46_0.04_45)]">{tier.name}</p>
+              <p className="mt-3 text-5xl text-[oklch(0.19_0.03_42)]">{tier.price}</p>
+              <p className="mt-2 text-sm text-[oklch(0.42_0.02_52)]">{tier.duration}</p>
+              <ul className="mt-7 space-y-2.5 border-t border-[oklch(0.84_0.02_70)] pt-6">
                 {tier.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2 text-sm text-[oklch(0.38_0.02_60)]">
-                    <Check className="h-4 w-4 text-[oklch(0.55_0.04_68)]" /> {feature}
+                  <li key={feature} className="flex items-center gap-2 text-sm text-[oklch(0.35_0.02_50)]">
+                    <Check className="h-4 w-4 text-[oklch(0.46_0.11_34)]" /> {feature}
                   </li>
                 ))}
               </ul>
               <a
                 href="#booking"
-                className={`mt-7 inline-block rounded-full px-5 py-2.5 text-sm transition ${
+                className={`mt-8 inline-block px-5 py-2.5 text-sm font-medium tracking-wide transition ${
                   tier.recommended
-                    ? "bg-[oklch(0.24_0.03_58)] text-white hover:bg-[oklch(0.18_0.02_58)]"
-                    : "border border-[oklch(0.82_0.02_70)] text-[oklch(0.28_0.03_58)] hover:border-[oklch(0.64_0.03_65)]"
+                    ? "bg-[oklch(0.23_0.03_42)] text-[oklch(0.98_0.01_82)] hover:bg-[oklch(0.16_0.03_40)]"
+                    : "border border-[oklch(0.64_0.05_40)] text-[oklch(0.24_0.03_42)] hover:border-[oklch(0.46_0.11_34)]"
                 }`}
               >
                 Choose {tier.name}
