@@ -9,9 +9,18 @@ import { TestimonialsSection } from "@/components/sections/testimonials-section"
 export default function Home() {
   return (
     <main className="site-background overflow-x-clip text-[var(--text)]">
-      <header className="border-b border-[var(--line)] bg-[linear-gradient(180deg,color-mix(in_oklab,var(--surface)_78%,var(--brand)_22%),var(--surface))]">
-        <div className="mx-auto flex max-w-[1180px] items-center justify-between px-5 py-5 sm:px-8 lg:px-10">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--line)] bg-[linear-gradient(180deg,color-mix(in_oklab,var(--surface)_78%,var(--brand)_22%),var(--surface))]/95 backdrop-blur-md">
+        <div className="mx-auto flex max-w-[1180px] items-center justify-between px-5 py-4 sm:px-8 lg:px-10">
           <p className="font-display text-3xl">Lightstudio</p>
+
+          <nav className="hidden items-center gap-6 text-sm font-medium text-[var(--muted)] md:flex">
+            <a className="transition hover:text-[var(--text)]" href="#about">About</a>
+            <a className="transition hover:text-[var(--text)]" href="#pricing">Pricing</a>
+            <a className="transition hover:text-[var(--text)]" href="#portfolio">Portfolio</a>
+            <a className="transition hover:text-[var(--text)]" href="#services">Services</a>
+            <a className="transition hover:text-[var(--text)]" href="#booking">Contact</a>
+          </nav>
+
           <a
             href="#booking"
             className="rounded-full border border-[var(--brand)] bg-[var(--brand)] px-5 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[var(--brand-ink)] shadow-[0_8px_26px_-12px_color-mix(in_oklab,var(--brand)_66%,black)]"
@@ -20,6 +29,8 @@ export default function Home() {
           </a>
         </div>
       </header>
+
+      <div className="h-[84px]" aria-hidden />
       <AboutSection />
       <PricingSection />
       <PortfolioSection />

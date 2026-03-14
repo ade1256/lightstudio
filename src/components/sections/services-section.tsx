@@ -7,7 +7,7 @@ const icons = { Camera, Heart, Sparkles, GraduationCap, Package } as const;
 
 export function ServicesSection() {
   return (
-    <section className="border-y border-[var(--line)] bg-[var(--surface)] py-[clamp(4rem,8vw,7rem)]">
+    <section id="services" className="border-y border-[var(--line)] bg-[var(--surface)] py-[clamp(4rem,8vw,7rem)]">
       <Container>
         <SectionHeading
           eyebrow="Layanan"
