@@ -1,7 +1,4 @@
-"use client";
-
 import { Camera, GraduationCap, Heart, Package, Sparkles } from "lucide-react";
-import { motion } from "framer-motion";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { services } from "@/data/site-data";
@@ -10,34 +7,28 @@ const icons = { Camera, Heart, Sparkles, GraduationCap, Package } as const;
 
 export function ServicesSection() {
   return (
-    <section id="services" className="py-[clamp(4.5rem,8vw,7.2rem)]">
+    <section className="border-y border-[var(--line)] bg-[var(--surface)] py-[clamp(4rem,8vw,7rem)]">
       <Container>
         <SectionHeading
-          eyebrow="Services"
-          title="Specialized sessions tailored to your story and style"
-          description="Each package includes planning guidance, professional direction, and polished retouching."
+          eyebrow="Layanan"
+          title="Sesi yang dirancang sesuai tujuan visualmu"
+          description="Bukan paket generik. Tiap layanan disusun supaya output foto tepat untuk kebutuhan pribadi atau bisnis."
         />
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
           {services.map((service, i) => {
             const Icon = icons[service.icon as keyof typeof icons];
             return (
-              <motion.article
-                key={service.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 0.4, delay: i * 0.06 }}
-                whileHover={{ y: -5 }}
-                className="group relative border border-[oklch(0.84_0.02_68)] bg-[linear-gradient(165deg,oklch(0.985_0.006_82),oklch(0.965_0.01_78))] p-6"
-              >
-                <div className="mb-5 flex items-center justify-between">
-                  <Icon className="h-5 w-5 text-[oklch(0.46_0.11_34)] transition group-hover:text-[oklch(0.35_0.12_34)]" />
-                  <span className="h-px w-12 bg-[linear-gradient(90deg,oklch(0.6_0.09_36),transparent)]" />
+              <article key={service.title} className="grid grid-cols-[auto_1fr] gap-4 border-t border-[var(--line)] pt-5">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full border border-[color-mix(in_oklab,var(--brand)_55%,transparent)] bg-[color-mix(in_oklab,var(--brand)_14%,transparent)]">
+                  <Icon className="h-5 w-5 text-[var(--brand)]" />
                 </div>
-                <h3 className="text-2xl leading-tight text-[oklch(0.22_0.03_44)]">{service.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-[oklch(0.43_0.02_52)]">{service.description}</p>
-              </motion.article>
+                <div>
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-[var(--muted)]">0{i + 1}</p>
+                  <h3 className="mt-1 text-2xl text-[var(--text)]">{service.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">{service.description}</p>
+                </div>
+              </article>
             );
           })}
         </div>

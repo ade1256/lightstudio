@@ -1,17 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --background: oklch(0.985 0.007 78);
-  --foreground: oklch(0.2 0.03 42);
-  --paper: oklch(0.97 0.01 82);
-  --ink-soft: oklch(0.42 0.02 52);
-  --accent: oklch(0.62 0.09 34);
-  --accent-deep: oklch(0.44 0.12 32);
+  color-scheme: light;
+  --background: oklch(0.98 0.006 180);
+  --surface: oklch(0.96 0.01 180);
+  --text: oklch(0.2 0.02 190);
+  --muted: oklch(0.47 0.02 190);
+  --brand: #24aa91;
+  --brand-ink: oklch(0.27 0.05 185);
+  --line: oklch(0.86 0.01 190);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --background: oklch(0.16 0.015 190);
+    --surface: oklch(0.2 0.015 190);
+    --text: oklch(0.93 0.01 190);
+    --muted: oklch(0.76 0.02 190);
+    --brand-ink: oklch(0.16 0.02 185);
+    --line: oklch(0.33 0.01 190);
+  }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
 }
@@ -27,11 +39,12 @@ body {
 }
 
 body {
-  background: radial-gradient(circle at 92% 2%, oklch(0.92 0.03 40 / 0.45), transparent 32%),
-    radial-gradient(circle at 8% 30%, oklch(0.95 0.02 85 / 0.5), transparent 30%), var(--background);
-  color: var(--foreground);
+  background:
+    radial-gradient(circle at 12% 8%, color-mix(in oklab, var(--brand) 10%, transparent), transparent 28%),
+    radial-gradient(circle at 86% 26%, color-mix(in oklab, var(--brand) 12%, transparent), transparent 24%),
+    var(--background);
+  color: var(--text);
   font-family: var(--font-sans), sans-serif;
-  line-height: 1.45;
 }
 
 h1,
@@ -54,16 +67,19 @@ textarea {
   font: inherit;
 }
 
-.editorial-divider {
-  position: relative;
+::selection {
+  background: color-mix(in oklab, var(--brand) 35%, transparent);
 }
 
-.editorial-divider::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -0.9rem;
-  height: 2px;
-  width: 3.5rem;
-  background: linear-gradient(90deg, var(--accent-deep), transparent);
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

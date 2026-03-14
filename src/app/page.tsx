@@ -9,7 +9,7 @@ import { TestimonialsSection } from "@/components/sections/testimonials-section"
 
 export default function Home() {
   return (
-    <main className="overflow-x-clip bg-[oklch(0.985_0.007_78)] text-[oklch(0.2_0.03_42)]">
+    <main className="overflow-x-clip text-[var(--text)]">
       <HeroSection />
       <PortfolioSection />
       <ServicesSection />

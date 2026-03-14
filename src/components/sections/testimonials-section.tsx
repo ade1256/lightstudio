@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -9,39 +6,45 @@ import { testimonials } from "@/data/site-data";
 
 export function TestimonialsSection() {
   return (
-    <section className="py-[clamp(4.4rem,8vw,7rem)]">
+    <section className="py-[clamp(4rem,8vw,7rem)]">
       <Container>
         <SectionHeading
-          eyebrow="Testimonials"
-          title="Trusted by couples, families, and ambitious brands"
+          eyebrow="Client Voice"
+          title="Dipilih karena kualitas, balik lagi karena pengalaman"
           align="center"
         />
 
-        <div className="mt-14 grid gap-5 md:grid-cols-3">
-          {testimonials.map((item, i) => (
-            <motion.article
-              key={item.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="border border-[oklch(0.84_0.02_68)] bg-[oklch(0.98_0.009_82)] p-6"
-            >
-              <div className="flex items-center gap-3">
-                <Image src={item.avatar} alt={item.name} width={44} height={44} className="h-11 w-11 rounded-full object-cover" />
-                <div>
-                  <p className="font-semibold text-[oklch(0.22_0.03_44)]">{item.name}</p>
-                  <p className="text-xs uppercase tracking-wider text-[oklch(0.48_0.03_44)]">{item.role}</p>
+        <div className="mt-12 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+          <article className="border border-[var(--line)] bg-[var(--surface)] p-6 sm:p-8">
+            <div className="flex gap-1">
+              {Array.from({ length: testimonials[0].rating }).map((_, idx) => (
+                <Star key={idx} className="h-4 w-4 fill-[var(--brand)] text-[var(--brand)]" />
+              ))}
+            </div>
+            <p className="mt-4 text-2xl leading-snug text-[var(--text)]">“{testimonials[0].review}”</p>
+            <div className="mt-6 flex items-center gap-3">
+              <Image src={testimonials[0].avatar} alt={testimonials[0].name} width={48} height={48} className="h-12 w-12 rounded-full object-cover" />
+              <div>
+                <p className="font-semibold text-[var(--text)]">{testimonials[0].name}</p>
+                <p className="text-xs uppercase tracking-wider text-[var(--muted)]">{testimonials[0].role}</p>
+              </div>
+            </div>
+          </article>
+
+          <div className="space-y-5">
+            {testimonials.slice(1).map((item) => (
+              <article key={item.name} className="border border-[var(--line)] bg-[var(--surface)] p-5">
+                <p className="text-sm leading-relaxed text-[var(--muted)]">“{item.review}”</p>
+                <div className="mt-4 flex items-center gap-3">
+                  <Image src={item.avatar} alt={item.name} width={40} height={40} className="h-10 w-10 rounded-full object-cover" />
+                  <div>
+                    <p className="text-sm font-semibold text-[var(--text)]">{item.name}</p>
+                    <p className="text-[0.72rem] uppercase tracking-wider text-[var(--muted)]">{item.role}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="mt-4 flex gap-1">
-                {Array.from({ length: item.rating }).map((_, idx) => (
-                  <Star key={idx} className="h-4 w-4 fill-[oklch(0.79_0.12_72)] text-[oklch(0.79_0.12_72)]" />
-                ))}
-              </div>
-              <p className="mt-4 text-sm leading-relaxed text-[oklch(0.41_0.02_52)]">“{item.review}”</p>
-            </motion.article>
-          ))}
+              </article>
+            ))}
+          </div>
         </div>
       </Container>
     </section>

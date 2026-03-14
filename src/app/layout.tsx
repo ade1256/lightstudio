@@ -15,8 +15,9 @@ const sans = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Lumen Atelier | Premium Photography Studio",
-  description: "High-end photography studio website with portfolio, services, pricing, testimonials, and booking.",
+  title: "Lightstudio | Booking Foto Studio Cepat & Premium",
+  description:
+    "Landing page Lightstudio untuk booking cepat, cek portofolio, dan lihat paket harga studio foto premium.",
 };
 
 export default function RootLayout({
@@ -25,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="id" className="scroll-smooth">
       <body className={`${display.variable} ${sans.variable} antialiased`}>{children}</body>
     </html>
   );

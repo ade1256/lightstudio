@@ -2,10 +2,9 @@ import { PortfolioItem, PricingTier, Service, Testimonial } from "@/types";
 
 export const navLinks = [
   { label: "Portfolio", href: "#portfolio" },
-  { label: "Services", href: "#services" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "About", href: "#about" },
-  { label: "Book", href: "#booking" },
+  { label: "Paket", href: "#pricing" },
+  { label: "Studio", href: "#about" },
+  { label: "Booking", href: "#booking" },
 ];
 
 export const portfolioCategories = [
@@ -18,88 +17,86 @@ export const portfolioCategories = [
 ] as const;
 
 export const portfolioItems: PortfolioItem[] = [
-  { id: 1, title: "Golden Hour Vows", category: "Wedding", src: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80", alt: "Couple at sunset wedding", width: 900, height: 1300 },
-  { id: 2, title: "Cap Toss", category: "Graduation", src: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80", alt: "Graduates celebrating outdoors", width: 1000, height: 700 },
-  { id: 3, title: "Soft Morning", category: "Family", src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80", alt: "Family portrait in natural light", width: 900, height: 1200 },
-  { id: 4, title: "Editorial Close-up", category: "Studio Portrait", src: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&q=80", alt: "Studio beauty portrait", width: 900, height: 1200 },
-  { id: 5, title: "Minimal Product Frame", category: "Product Photography", src: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=80", alt: "Luxury watch product shot", width: 1000, height: 800 },
-  { id: 6, title: "First Dance", category: "Wedding", src: "https://images.unsplash.com/photo-1472653431158-6364773b2a56?auto=format&fit=crop&w=1200&q=80", alt: "Couple first dance", width: 900, height: 1200 },
-  { id: 7, title: "Proud Moment", category: "Graduation", src: "https://images.unsplash.com/photo-1627556592933-ffe99c1cd9eb?auto=format&fit=crop&w=1200&q=80", alt: "Graduation portrait", width: 1000, height: 1300 },
-  { id: 8, title: "Studio Sibling", category: "Family", src: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=1200&q=80", alt: "Family siblings in studio", width: 1000, height: 700 },
-  { id: 9, title: "Rembrandt Light", category: "Studio Portrait", src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1200&q=80", alt: "Classic portrait lighting", width: 900, height: 1300 },
-  { id: 10, title: "Skincare Set", category: "Product Photography", src: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=1200&q=80", alt: "Skincare product composition", width: 1000, height: 1200 },
+  { id: 1, title: "Evening Ceremony", category: "Wedding", src: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80", alt: "Wedding portrait at sunset", width: 900, height: 1300 },
+  { id: 2, title: "White Studio Portrait", category: "Studio Portrait", src: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&q=80", alt: "Minimal studio beauty portrait", width: 900, height: 1200 },
+  { id: 3, title: "Milestone Day", category: "Graduation", src: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80", alt: "Graduate celebrating", width: 1000, height: 700 },
+  { id: 4, title: "Family Sunday", category: "Family", src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80", alt: "Warm family photo", width: 900, height: 1200 },
+  { id: 5, title: "Hero Product", category: "Product Photography", src: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=80", alt: "Watch product close up", width: 1000, height: 800 },
+  { id: 6, title: "Reception Mood", category: "Wedding", src: "https://images.unsplash.com/photo-1472653431158-6364773b2a56?auto=format&fit=crop&w=1200&q=80", alt: "Wedding first dance", width: 900, height: 1200 },
+  { id: 7, title: "Studio Graduation", category: "Graduation", src: "https://images.unsplash.com/photo-1627556592933-ffe99c1cd9eb?auto=format&fit=crop&w=1200&q=80", alt: "Graduation portrait", width: 1000, height: 1300 },
+  { id: 8, title: "Sibling Story", category: "Family", src: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=1200&q=80", alt: "Family siblings in studio", width: 1000, height: 700 },
 ];
 
 export const services: Service[] = [
   {
-    title: "Studio Portrait",
-    description: "Editorial and personal portrait sessions crafted with refined lighting and direction.",
+    title: "Portrait Session",
+    description: "Sesi personal dengan arahan pose dan pencahayaan yang clean, cocok untuk personal branding atau hadiah.",
     icon: "Camera",
   },
   {
-    title: "Wedding Photography",
-    description: "Elegant visual storytelling from preparation to celebration with natural emotional coverage.",
+    title: "Wedding Coverage",
+    description: "Dokumentasi hari pernikahan dengan gaya sinematik yang tetap natural dan emosional.",
     icon: "Heart",
   },
   {
-    title: "Event Coverage",
-    description: "Discreet documentary-style capture for corporate, private, and cultural gatherings.",
-    icon: "Sparkles",
-  },
-  {
-    title: "Graduation Photoshoot",
-    description: "Timeless graduation portraits blending formal shots with candid celebratory moments.",
+    title: "Graduation Session",
+    description: "Foto wisuda formal dan candid dalam satu alur sesi yang efisien.",
     icon: "GraduationCap",
   },
   {
-    title: "Product Photography",
-    description: "High-clarity product imagery optimized for catalog, web commerce, and campaigns.",
+    title: "Family Session",
+    description: "Sesi keluarga yang hangat, diarahkan agar tetap nyaman untuk anak maupun orang tua.",
+    icon: "Sparkles",
+  },
+  {
+    title: "Product Shoot",
+    description: "Visual produk yang tajam dan premium untuk katalog, ads, dan social commerce.",
     icon: "Package",
   },
 ];
 
 export const pricingTiers: PricingTier[] = [
   {
-    name: "Basic",
-    price: "$180",
-    duration: "30 minute session",
-    features: ["5 edited photos", "30 minute session"],
+    name: "Quick",
+    price: "Rp 750K",
+    duration: "30 menit · 1 look",
+    features: ["5 foto edit", "1 backdrop", "Soft retouch"],
   },
   {
-    name: "Standard",
-    price: "$320",
-    duration: "1 hour session",
-    features: ["10 edited photos", "1 hour session"],
+    name: "Signature",
+    price: "Rp 1.450K",
+    duration: "60 menit · 2 look",
+    features: ["12 foto edit", "2 backdrop", "Priority editing", "Private online gallery"],
     recommended: true,
   },
   {
-    name: "Premium",
-    price: "$580",
-    duration: "2 hour session",
-    features: ["20 edited photos", "2 hour session", "Printed photos included"],
+    name: "Campaign",
+    price: "Rp 2.900K",
+    duration: "120 menit · multi look",
+    features: ["25 foto edit", "Creative direction", "Commercial usage basic", "Assist lighting setup"],
   },
 ];
 
 export const testimonials: Testimonial[] = [
   {
-    name: "Ariana Lee",
+    name: "Nabila Rahma",
     role: "Wedding Client",
     avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=300&q=80",
     rating: 5,
-    review: "The photos feel cinematic and deeply personal. Every frame carries emotion without ever feeling staged.",
+    review: "Brief kami diterjemahkan tepat. Hasil fotonya premium dan tetap terasa personal.",
   },
   {
-    name: "Malik Carter",
-    role: "Brand Founder",
+    name: "Rayhan Putra",
+    role: "Skincare Brand Owner",
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80",
     rating: 5,
-    review: "Our product catalog looked instantly premium. Lighting, composition, and retouching were world class.",
+    review: "Foto produk jadi jauh lebih meyakinkan buat iklan. Konversi katalog juga naik.",
   },
   {
-    name: "Sophia Reyes",
+    name: "Shinta Amelia",
     role: "Graduation Session",
     avatar: "https://images.unsplash.com/photo-1542206395-9feb3edaa68d?auto=format&fit=crop&w=300&q=80",
     rating: 5,
-    review: "I felt guided the entire time and the final gallery exceeded everything I imagined.",
+    review: "Proses booking cepat, sesi terarah, hasilnya rapi banget. Recommended.",
   },
 ];
