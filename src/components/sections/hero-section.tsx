@@ -11,15 +11,15 @@ export function HeroSection() {
           </p>
 
           <h1 className="text-[clamp(2.3rem,6vw,5rem)] leading-[0.92] text-[var(--text)]">
-            Booking foto studio cepat
+            Abadikan momen pentingmu
             <br />
-            dengan hasil
-            <span className="text-[var(--brand)]"> premium.</span>
+            dengan hasil foto
+            <span className="text-[var(--brand)]"> yang lebih berkelas.</span>
           </h1>
 
           <p className="mt-5 max-w-[58ch] text-base leading-relaxed text-[var(--muted)] sm:text-lg">
-            Cek kualitas portofolio, pilih paket, lalu booking langsung via WhatsApp. Ringkas untuk klien, rapi untuk
-            hasil akhir.
+            Dari sesi personal, keluarga, sampai kebutuhan brand, Lightstudio membantu kamu mendapatkan foto yang
+            terlihat profesional, rapi, dan siap dipakai. Pilih paket yang sesuai, lalu booking cepat via WhatsApp.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
@@ -27,7 +27,7 @@ export function HeroSection() {
               href="#booking"
               className="rounded-full bg-[var(--brand)] px-7 py-3 text-sm font-semibold tracking-wide text-[var(--brand-ink)] transition hover:brightness-110"
             >
-              Booking via WhatsApp
+Cek Jadwal & Booking
             </a>
             <a
               href="#portfolio"
