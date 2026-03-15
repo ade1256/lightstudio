@@ -1,63 +1,44 @@
-"use client";
-
+import Link from "next/link";
 import Image from "next/image";
-import { useMemo, useState } from "react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { portfolioCategories, portfolioItems } from "@/data/site-data";
+import { portfolioItems } from "@/data/site-data";
 
 export function PortfolioSection() {
-  const [activeCategory, setActiveCategory] = useState<(typeof portfolioCategories)[number]>("All");
-
-  const filteredItems = useMemo(
-    () =>
-      activeCategory === "All"
-        ? portfolioItems
-        : portfolioItems.filter((item) => item.category === activeCategory),
-    [activeCategory],
-  );
+  const previewItems = portfolioItems.slice(0, 6);
 
   return (
     <section id="portfolio" className="section-gradient-soft py-[clamp(4.2rem,8vw,7.5rem)]">
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+        <div className="flex flex-wrap items-end justify-between gap-5">
           <SectionHeading
             eyebrow="Portfolio"
             title="Kualitas yang bisa kamu lihat, bukan sekadar janji"
-            description="Setiap frame dipilih untuk menunjukkan kualitas cahaya, warna kulit, dan detail retouch dari Lightstudio."
+            description="Preview singkat hasil karya Lightstudio. Lihat semua koleksi untuk galeri lengkap."
           />
 
-          <div className="flex flex-wrap gap-2.5 lg:justify-end">
-            {portfolioCategories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`rounded-full border px-4 py-2 text-xs font-medium tracking-wide transition sm:text-sm ${
-                  activeCategory === category
-                    ? "border-[var(--brand)] bg-[var(--brand)] text-[var(--brand-ink)]"
-                    : "border-[var(--line)] text-[var(--muted)] hover:border-[var(--brand)] hover:text-[var(--text)]"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+          <Link
+            href="/portfolio"
+            className="rounded-full border border-[var(--line)] bg-[var(--surface)] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text)] transition hover:border-[var(--brand)]"
+          >
+            Lihat semua
+          </Link>
         </div>
 
-        <div className="mt-12 columns-1 gap-5 sm:columns-2 lg:columns-3">
-          {filteredItems.map((item) => (
-            <article key={item.id} className="mb-5 break-inside-avoid overflow-hidden border border-[var(--line)] bg-[var(--surface)]">
+        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {previewItems.map((item) => (
+            <article key={item.id} className="overflow-hidden border border-[var(--line)] bg-[var(--surface)]">
               <Image
                 src={item.src}
                 alt={item.alt}
                 width={item.width}
                 height={item.height}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="h-auto w-full object-cover"
+                className="h-48 w-full object-cover sm:h-52"
               />
-              <div className="flex items-center justify-between gap-3 px-4 py-3">
+              <div className="flex items-center justify-between gap-3 px-3 py-2.5">
                 <p className="text-sm font-semibold text-[var(--text)]">{item.title}</p>
-                <span className="text-[0.72rem] uppercase tracking-[0.18em] text-[var(--muted)]">{item.category}</span>
+                <span className="text-[0.68rem] uppercase tracking-[0.16em] text-[var(--muted)]">{item.category}</span>
               </div>
             </article>
           ))}
