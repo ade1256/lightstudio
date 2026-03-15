@@ -1,11 +1,14 @@
 "use client";
-/* eslint-disable react-hooks/set-state-in-effect */
 
+import Image from "next/image";
 import { FormEvent, useEffect, useState } from "react";
+import { portfolioCategories } from "@/data/site-data";
 
 type PortfolioItem = { _id: string; title: string; category: string; imageUrl: string; alt: string; order: number };
 type PricingItem = { name: string; price: string; notes: string[] };
 type PricingCategory = { _id: string; category: string; order: number; items: PricingItem[] };
+
+const portfolioCategoryOptions = portfolioCategories.filter((c) => c !== "All");
 
 const emptyPortfolioForm = { title: "", category: "Special Session", imageUrl: "", alt: "", order: 0 };
 const emptyPricingItem = (): PricingItem => ({ name: "", price: "", notes: [""] });
@@ -18,6 +21,7 @@ export default function CmsPage() {
 
   const [portfolioEditId, setPortfolioEditId] = useState<string | null>(null);
   const [portfolioForm, setPortfolioForm] = useState(emptyPortfolioForm);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const [pricingEditId, setPricingEditId] = useState<string | null>(null);
   const [pricingForm, setPricingForm] = useState(emptyPricingForm);
@@ -58,6 +62,23 @@ export default function CmsPage() {
     setPortfolioEditId(null);
     setPortfolioForm(emptyPortfolioForm);
     await loadData();
+  }
+
+  async function uploadPortfolioImage(file: File) {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch("/api/cms/upload-image", {
+      method: "POST",
+      headers: {
+        "x-cms-key": cmsKey,
+      },
+      body: formData,
+    });
+
+    if (!res.ok) throw new Error("Upload gambar gagal");
+    const data = await res.json();
+    setPortfolioForm((prev) => ({ ...prev, imageUrl: data.url || "" }));
   }
 
   async function deletePortfolio(id: string) {
@@ -139,12 +160,44 @@ export default function CmsPage() {
 
         <form onSubmit={savePortfolio} className="grid gap-3 md:grid-cols-6">
           <input className="border border-[var(--line)] px-3 py-2 text-sm" placeholder="Judul foto" value={portfolioForm.title} onChange={(e) => setPortfolioForm({ ...portfolioForm, title: e.target.value })} />
-          <input className="border border-[var(--line)] px-3 py-2 text-sm" placeholder="Kategori" value={portfolioForm.category} onChange={(e) => setPortfolioForm({ ...portfolioForm, category: e.target.value })} />
-          <input className="border border-[var(--line)] px-3 py-2 text-sm" placeholder="URL gambar" value={portfolioForm.imageUrl} onChange={(e) => setPortfolioForm({ ...portfolioForm, imageUrl: e.target.value })} />
+          <select className="border border-[var(--line)] px-3 py-2 text-sm" value={portfolioForm.category} onChange={(e) => setPortfolioForm({ ...portfolioForm, category: e.target.value })}>
+            {portfolioCategoryOptions.map((option) => (
+              <option key={option} value={option}>{option}</option>
+            ))}
+          </select>
+          <input className="border border-[var(--line)] px-3 py-2 text-sm" placeholder="URL gambar (otomatis dari upload)" value={portfolioForm.imageUrl} onChange={(e) => setPortfolioForm({ ...portfolioForm, imageUrl: e.target.value })} />
           <input className="border border-[var(--line)] px-3 py-2 text-sm" placeholder="Alt text" value={portfolioForm.alt} onChange={(e) => setPortfolioForm({ ...portfolioForm, alt: e.target.value })} />
           <input type="number" className="border border-[var(--line)] px-3 py-2 text-sm" placeholder="Urutan" value={portfolioForm.order} onChange={(e) => setPortfolioForm({ ...portfolioForm, order: Number(e.target.value) })} />
           <button className="rounded-md bg-[var(--text)] px-3 py-2 text-sm font-semibold text-white">{portfolioEditId ? "Update" : "Tambah"}</button>
         </form>
+
+        <div className="mt-3 grid gap-3 md:grid-cols-[1fr_auto] md:items-center">
+          <input
+            type="file"
+            accept="image/*"
+            className="border border-[var(--line)] px-3 py-2 text-sm"
+            onChange={async (e) => {
+              const file = e.target.files?.[0];
+              if (!file) return;
+              try {
+                setUploadingImage(true);
+                await uploadPortfolioImage(file);
+              } catch (error) {
+                alert(error instanceof Error ? error.message : "Upload gagal");
+              } finally {
+                setUploadingImage(false);
+                e.currentTarget.value = "";
+              }
+            }}
+          />
+          <span className="text-xs text-[var(--muted)]">{uploadingImage ? "Mengunggah gambar..." : "Upload gambar ke Sanity"}</span>
+        </div>
+
+        {portfolioForm.imageUrl ? (
+          <div className="mt-3 overflow-hidden rounded-md border border-[var(--line)] bg-white p-2">
+            <Image src={portfolioForm.imageUrl} alt="Preview" width={960} height={320} className="h-40 w-full object-cover" />
+          </div>
+        ) : null}
 
         <div className="mt-4 space-y-2">
           {portfolioList.map((item) => (
