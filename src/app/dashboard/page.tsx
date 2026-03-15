@@ -34,7 +34,6 @@ export default function DashboardPage() {
 
   const [savingPortfolio, setSavingPortfolio] = useState(false);
   const [savingPricing, setSavingPricing] = useState(false);
-  const [seeding, setSeeding] = useState(false);
 
   const filteredPortfolio = useMemo(
     () =>
@@ -90,19 +89,6 @@ export default function DashboardPage() {
   async function logout() {
     await fetch("/api/dashboard/logout", { method: "POST" });
     router.replace("/dashboard/login");
-  }
-
-  async function seedAllToSanity() {
-    try {
-      setSeeding(true);
-      await request("/api/cms/seed", "POST");
-      await loadData();
-      alert("Seed berhasil ke Sanity.");
-    } catch {
-      alert("Seed gagal.");
-    } finally {
-      setSeeding(false);
-    }
   }
 
   async function savePortfolio(e: FormEvent) {
@@ -202,9 +188,6 @@ export default function DashboardPage() {
               <p className="mt-1 text-sm text-slate-500">Kelola portfolio dan paket harga dengan form detail yang lebih user-friendly.</p>
             </div>
             <div className="flex gap-2">
-              <button onClick={seedAllToSanity} className="h-10 rounded-md bg-blue-600 px-4 text-sm font-semibold text-white hover:bg-blue-700">
-                {seeding ? "Seeding..." : "Seed Data"}
-              </button>
               <button onClick={logout} className="h-10 rounded-md border border-slate-300 bg-white px-4 text-sm font-semibold text-slate-700">
                 Logout
               </button>
