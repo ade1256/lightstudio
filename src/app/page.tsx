@@ -7,10 +7,14 @@ import { PricingSection } from "@/components/sections/pricing-section";
 import { ServicesSection } from "@/components/sections/services-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { TopNav } from "@/components/ui/top-nav";
-import { getPortfolioContent, getPricingContent } from "@/lib/cms-content";
+import { getBusinessSettingsContent, getPortfolioContent, getPricingContent } from "@/lib/cms-content";
 
 export default async function Home() {
-  const [portfolioItems, pricingCatalog] = await Promise.all([getPortfolioContent(), getPricingContent()]);
+  const [portfolioItems, pricingCatalog, settings] = await Promise.all([
+    getPortfolioContent(),
+    getPricingContent(),
+    getBusinessSettingsContent(),
+  ]);
 
   return (
     <main className="site-background overflow-x-clip text-[var(--text)]">
@@ -21,8 +25,15 @@ export default async function Home() {
       <ServicesSection />
       <TestimonialsSection />
       <AboutSection />
-      <BookingSection />
-      <Footer />
+      <BookingSection whatsappUrl={settings.whatsappUrl} />
+      <Footer
+        email={settings.email}
+        phone={settings.phone}
+        instagramUrl={settings.instagramUrl}
+        instagramHandle={settings.instagramHandle}
+        address={settings.address}
+        openHours={settings.openHours}
+      />
     </main>
   );
 }

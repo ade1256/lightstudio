@@ -1,7 +1,16 @@
 import { Instagram, Mail, MapPin, Phone } from "lucide-react";
 import { Container } from "@/components/ui/container";
 
-export function Footer() {
+interface FooterProps {
+  email: string;
+  phone: string;
+  instagramUrl: string;
+  instagramHandle: string;
+  address: string;
+  openHours: string;
+}
+
+export function Footer({ email, phone, instagramUrl, instagramHandle, address, openHours }: FooterProps) {
   return (
     <footer className="border-t border-[var(--line)] bg-[var(--surface)] pt-10">
       <Container className="grid gap-8 pb-8 md:grid-cols-2 lg:grid-cols-4">
@@ -12,23 +21,23 @@ export function Footer() {
 
         <div className="space-y-2 text-sm text-[var(--muted)]">
           <p className="flex items-center gap-2">
-            <Mail className="h-4 w-4 text-[var(--brand)]" /> hello@lightstudio.id
+            <Mail className="h-4 w-4 text-[var(--brand)]" /> {email}
           </p>
           <p className="flex items-center gap-2">
-            <Phone className="h-4 w-4 text-[var(--brand)]" /> +62 812-3456-7890
+            <Phone className="h-4 w-4 text-[var(--brand)]" /> {phone}
           </p>
         </div>
 
         <div className="space-y-2 text-sm text-[var(--muted)]">
           <p className="flex items-center gap-2">
-            <MapPin className="h-4 w-4 text-[var(--brand)]" /> Purwokerto, Jawa Tengah
+            <MapPin className="h-4 w-4 text-[var(--brand)]" /> {address}
           </p>
-          <p>Senin - Sabtu · 09:00 - 20:00</p>
+          <p>{openHours}</p>
         </div>
 
         <div className="text-sm text-[var(--muted)]">
-          <a href="#" className="inline-flex items-center gap-2 border-b border-transparent pb-0.5 transition hover:border-[var(--brand)]">
-            <Instagram className="h-4 w-4" /> @lightstudio.id
+          <a href={instagramUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 border-b border-transparent pb-0.5 transition hover:border-[var(--brand)]">
+            <Instagram className="h-4 w-4" /> {instagramHandle}
           </a>
         </div>
       </Container>

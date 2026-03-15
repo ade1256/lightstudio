@@ -1,5 +1,5 @@
-import {PortfolioItem, PackageCategory} from '@/types'
-import {portfolioItems as fallbackPortfolio} from '@/data/site-data'
+import {BusinessSettings, PortfolioItem, PackageCategory} from '@/types'
+import {businessSettings as fallbackSettings, portfolioItems as fallbackPortfolio} from '@/data/site-data'
 import {sanityPricingCatalogSeed as fallbackPricing} from '@/sanity/data/pricingCatalog'
 import {sanityReadClient} from '@/lib/sanity'
 
@@ -41,5 +41,18 @@ export async function getPricingContent(): Promise<PackageCategory[]> {
     return data?.length ? data : fallbackPricing
   } catch {
     return fallbackPricing
+  }
+}
+
+export async function getBusinessSettingsContent(): Promise<BusinessSettings> {
+  if (!hasSanityConfig()) return fallbackSettings
+
+  try {
+    const data = await sanityReadClient.fetch<BusinessSettings | null>(
+      `*[_type == "businessSettings" && _id == "business-settings"][0]{whatsappUrl,email,phone,instagramUrl,instagramHandle,address,openHours}`,
+    )
+    return data || fallbackSettings
+  } catch {
+    return fallbackSettings
   }
 }

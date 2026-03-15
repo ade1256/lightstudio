@@ -8,19 +8,38 @@ import { portfolioCategories } from "@/data/site-data";
 type PortfolioItem = { _id: string; title: string; category: string; imageUrl: string; alt: string; order: number };
 type PricingItem = { name: string; price: string; notes: string[] };
 type PricingCategory = { _id: string; category: string; order: number; items: PricingItem[] };
+type BusinessSettings = {
+  whatsappUrl: string;
+  email: string;
+  phone: string;
+  instagramUrl: string;
+  instagramHandle: string;
+  address: string;
+  openHours: string;
+};
 
 const portfolioCategoryOptions = portfolioCategories.filter((c) => c !== "All");
 const emptyPortfolioForm = { title: "", category: "Special Session", imageUrl: "", alt: "", order: 0 };
 const emptyPricingItem = (): PricingItem => ({ name: "", price: "", notes: [""] });
 const emptyPricingForm = { category: "", order: 0, items: [emptyPricingItem()] };
 const inputCls = "h-10 w-full rounded-md border border-slate-300 bg-white px-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100";
+const emptySettings: BusinessSettings = {
+  whatsappUrl: "",
+  email: "",
+  phone: "",
+  instagramUrl: "",
+  instagramHandle: "",
+  address: "",
+  openHours: "",
+};
 
 export default function DashboardPage() {
   const router = useRouter();
-  const [tab, setTab] = useState<"portfolio" | "pricing">("portfolio");
+  const [tab, setTab] = useState<"portfolio" | "pricing" | "settings">("portfolio");
 
   const [portfolioList, setPortfolioList] = useState<PortfolioItem[]>([]);
   const [pricingList, setPricingList] = useState<PricingCategory[]>([]);
+  const [settingsForm, setSettingsForm] = useState<BusinessSettings>(emptySettings);
 
   const [portfolioSearch, setPortfolioSearch] = useState("");
   const [pricingSearch, setPricingSearch] = useState("");
@@ -34,6 +53,7 @@ export default function DashboardPage() {
 
   const [savingPortfolio, setSavingPortfolio] = useState(false);
   const [savingPricing, setSavingPricing] = useState(false);
+  const [savingSettings, setSavingSettings] = useState(false);
 
   const filteredPortfolio = useMemo(
     () =>
@@ -54,22 +74,27 @@ export default function DashboardPage() {
   );
 
   const loadData = useCallback(async () => {
-    const [portfolioRes, pricingRes] = await Promise.all([fetch("/api/cms/portfolio"), fetch("/api/cms/pricing")]);
+    const [portfolioRes, pricingRes, settingsRes] = await Promise.all([
+      fetch("/api/cms/portfolio"),
+      fetch("/api/cms/pricing"),
+      fetch("/api/cms/settings"),
+    ]);
 
-    if (portfolioRes.status === 401 || pricingRes.status === 401) {
+    if (portfolioRes.status === 401 || pricingRes.status === 401 || settingsRes.status === 401) {
       router.replace("/dashboard/login");
       return;
     }
 
     setPortfolioList(await portfolioRes.json());
     setPricingList(await pricingRes.json());
+    setSettingsForm((await settingsRes.json()) || emptySettings);
   }, [router]);
 
   useEffect(() => {
     loadData();
   }, [loadData]);
 
-  async function request(url: string, method: "POST" | "PATCH" | "DELETE", body?: unknown) {
+  async function request(url: string, method: "POST" | "PATCH" | "PUT" | "DELETE", body?: unknown) {
     const res = await fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
@@ -159,6 +184,18 @@ export default function DashboardPage() {
     await loadData();
   }
 
+  async function saveSettings(e: FormEvent) {
+    e.preventDefault();
+    try {
+      setSavingSettings(true);
+      await request("/api/cms/settings", "PUT", settingsForm);
+      alert("Pengaturan kontak berhasil diperbarui.");
+      await loadData();
+    } finally {
+      setSavingSettings(false);
+    }
+  }
+
   function setPricingItem(index: number, patch: Partial<PricingItem>) {
     setPricingForm((prev) => {
       const items = [...prev.items];
@@ -201,6 +238,9 @@ export default function DashboardPage() {
           </button>
           <button onClick={() => setTab("pricing")} className={`h-10 rounded-md px-4 text-sm font-semibold ${tab === "pricing" ? "bg-slate-900 text-white" : "bg-white border border-slate-300 text-slate-700"}`}>
             Paket Harga
+          </button>
+          <button onClick={() => setTab("settings")} className={`h-10 rounded-md px-4 text-sm font-semibold ${tab === "settings" ? "bg-slate-900 text-white" : "bg-white border border-slate-300 text-slate-700"}`}>
+            Kontak & Info
           </button>
         </div>
 
@@ -300,7 +340,7 @@ export default function DashboardPage() {
               </div>
             </div>
           </section>
-        ) : (
+        ) : tab === "pricing" ? (
           <section className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
             <form onSubmit={savePricing} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
               <h2 className="text-lg font-semibold">Form Kategori & Paket Harga</h2>
@@ -379,6 +419,46 @@ export default function DashboardPage() {
                 ))}
               </div>
             </div>
+          </section>
+        ) : (
+          <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+            <h2 className="text-lg font-semibold">Kontak & Info Bisnis</h2>
+            <p className="mt-1 text-sm text-slate-500">Data ini otomatis dipakai di footer dan tombol booking WhatsApp landing page.</p>
+
+            <form onSubmit={saveSettings} className="mt-4 grid gap-3 sm:grid-cols-2">
+              <div>
+                <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">WhatsApp URL</label>
+                <input className={inputCls} value={settingsForm.whatsappUrl} onChange={(e) => setSettingsForm({ ...settingsForm, whatsappUrl: e.target.value })} required />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">Email</label>
+                <input className={inputCls} value={settingsForm.email} onChange={(e) => setSettingsForm({ ...settingsForm, email: e.target.value })} required />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">Nomor Telepon</label>
+                <input className={inputCls} value={settingsForm.phone} onChange={(e) => setSettingsForm({ ...settingsForm, phone: e.target.value })} required />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">Instagram URL</label>
+                <input className={inputCls} value={settingsForm.instagramUrl} onChange={(e) => setSettingsForm({ ...settingsForm, instagramUrl: e.target.value })} required />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">Instagram Handle</label>
+                <input className={inputCls} value={settingsForm.instagramHandle} onChange={(e) => setSettingsForm({ ...settingsForm, instagramHandle: e.target.value })} required />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">Jam Buka</label>
+                <input className={inputCls} value={settingsForm.openHours} onChange={(e) => setSettingsForm({ ...settingsForm, openHours: e.target.value })} required />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">Alamat</label>
+                <input className={inputCls} value={settingsForm.address} onChange={(e) => setSettingsForm({ ...settingsForm, address: e.target.value })} required />
+              </div>
+
+              <button className="h-10 rounded-md bg-slate-900 px-4 text-sm font-semibold text-white sm:col-span-2" disabled={savingSettings}>
+                {savingSettings ? "Menyimpan..." : "Simpan Pengaturan Kontak"}
+              </button>
+            </form>
           </section>
         )}
       </div>

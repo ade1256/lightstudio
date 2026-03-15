@@ -35,6 +35,16 @@ export interface PackageCategory {
   items: PackageItem[];
 }
 
+export interface BusinessSettings {
+  whatsappUrl: string;
+  email: string;
+  phone: string;
+  instagramUrl: string;
+  instagramHandle: string;
+  address: string;
+  openHours: string;
+}
+
 export interface Testimonial {
   name: string;
   role: string;

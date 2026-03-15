@@ -2,26 +2,30 @@ import { CheckCircle2, Clock3, MessageCircleMore, ShieldCheck } from "lucide-rea
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 
+interface BookingSectionProps {
+  whatsappUrl: string;
+}
+
 const bookingSteps = [
   "Klik tombol WhatsApp",
   "Kirim tanggal + jenis sesi",
   "Tim Lightstudio konfirmasi jadwal dan harga final",
 ];
 
-export function BookingSection() {
+export function BookingSection({ whatsappUrl }: BookingSectionProps) {
   return (
     <section id="booking" className="section-gradient-brand py-[clamp(4.2rem,8vw,7rem)]">
       <Container className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
         <div>
           <SectionHeading
             eyebrow="Booking via WhatsApp"
-            title="Tanpa form. Booking langsung lewat chat."
-            description="Kami sederhanakan alur booking supaya cepat: langsung WhatsApp, langsung dapat respon dari tim studio."
+            title="Booking langsung lewat chat WhatsApp."
+            description="Kamu akan diarahkan ke WhatsApp, langsung dapat respon dari tim studio."
           />
 
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href="https://wa.me/6281234567890?text=Halo%20Lightstudio,%20saya%20ingin%20booking%20sesi%20foto."
+              href={whatsappUrl}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-[var(--brand)] bg-[var(--brand)] px-7 py-3 text-sm font-semibold tracking-wide text-[var(--brand-ink)] transition hover:brightness-110"
