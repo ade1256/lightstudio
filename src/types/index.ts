@@ -29,6 +29,17 @@ export interface PricingTier {
   recommended?: boolean;
 }
 
+export interface PackageItem {
+  name: string;
+  price: string;
+  notes?: string[];
+}
+
+export interface PackageCategory {
+  category: string;
+  items: PackageItem[];
+}
+
 export interface Testimonial {
   name: string;
   role: string;
