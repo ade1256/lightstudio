@@ -6,9 +6,9 @@ import { Menu, X } from "lucide-react";
 
 const navItems = [
   { label: "Portfolio", href: "#portfolio" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
+  { label: "Harga", href: "#pricing" },
+  { label: "Layanan", href: "#services" },
+  { label: "Tentang", href: "#about" },
   { label: "Booking", href: "#booking" },
 ];
 
@@ -21,10 +21,10 @@ export function TopNav() {
         <div className="mx-auto flex max-w-[1180px] items-center justify-between gap-4 px-5 py-4 sm:px-8 lg:px-10">
           <a href="#" className="flex items-center gap-2.5">
             <Image
-              src="/logo/lightproduction.png"
+              src="/logo/lightproduction-logo.png"
               alt="Lightstudio logo"
-              width={34}
-              height={34}
+              width={64}
+              height={64}
               className="h-[34px] w-[34px] object-contain"
               priority
             />
@@ -44,7 +44,7 @@ export function TopNav() {
               href="#booking"
               className="hidden shrink-0 rounded-full border border-[var(--brand)] bg-[var(--brand)] px-5 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[var(--brand-ink)] shadow-[0_8px_26px_-12px_color-mix(in_oklab,var(--brand)_66%,black)] sm:inline-flex"
             >
-              Book now
+              Booking now
             </a>
 
             <button
@@ -77,7 +77,7 @@ export function TopNav() {
                 onClick={() => setOpen(false)}
                 className="mt-2 inline-flex items-center justify-center rounded-full border border-[var(--brand)] bg-[var(--brand)] px-5 py-2.5 text-xs font-bold uppercase tracking-[0.16em] text-[var(--brand-ink)]"
               >
-                Book now
+                Booking now
               </a>
             </nav>
           </div>

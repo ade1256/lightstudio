@@ -66,7 +66,7 @@ export function PricingSection() {
               >
                 {featured ? (
                   <p className="mb-4 inline-flex items-center gap-1 border border-[var(--brand)] bg-[var(--brand)] px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-[0.16em] text-[var(--brand-ink)]">
-                    <Sparkles className="h-3 w-3" /> Highlight
+                    <Sparkles className="h-3 w-3" /> Rekomendasi
                   </p>
                 ) : null}
 

@@ -14,7 +14,7 @@ export function PortfolioSection() {
           <SectionHeading
             eyebrow="Portfolio"
             title="Kualitas yang bisa kamu lihat, bukan sekadar janji"
-            description="Preview singkat hasil karya Lightstudio. Lihat semua koleksi untuk galeri lengkap."
+            description="Preview singkat hasil karya Lightstudio. Klik lihat semua untuk membuka galeri lengkap per kategori."
           />
 
           <Link

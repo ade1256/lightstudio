@@ -21,7 +21,7 @@ export function Footer() {
 
         <div className="space-y-2 text-sm text-[var(--muted)]">
           <p className="flex items-center gap-2">
-            <MapPin className="h-4 w-4 text-[var(--brand)]" /> Jl. Kemang Raya 88, Jakarta
+            <MapPin className="h-4 w-4 text-[var(--brand)]" /> Purwokerto, Jawa Tengah
           </p>
           <p>Senin - Sabtu · 09:00 - 20:00</p>
         </div>

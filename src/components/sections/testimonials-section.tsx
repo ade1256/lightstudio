@@ -9,7 +9,7 @@ export function TestimonialsSection() {
     <section className="py-[clamp(4rem,8vw,7rem)]">
       <Container>
         <SectionHeading
-          eyebrow="Client Voice"
+          eyebrow="Testimoni Klien"
           title="Dipilih karena kualitas, balik lagi karena pengalaman"
           align="center"
         />

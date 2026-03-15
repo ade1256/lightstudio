@@ -7,15 +7,14 @@ export function HeroSection() {
       <Container className="grid items-center gap-9 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="max-w-3xl">
           <p className="mb-4 w-fit border border-[var(--line)] bg-[color-mix(in_oklab,var(--surface)_86%,var(--brand)_14%)] px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-[var(--muted)]">
-            Lightstudio Jakarta
+            Photostudio terbaik di Purwokerto
           </p>
 
           <h1 className="text-[clamp(2.3rem,6vw,5rem)] leading-[0.92] text-[var(--text)]">
-            Booking studio foto
+            Booking foto studio cepat
             <br />
-            cepat, hasil
-            <br />
-            <span className="text-[var(--brand)]">premium.</span>
+            dengan hasil
+            <span className="text-[var(--brand)]"> premium.</span>
           </h1>
 
           <p className="mt-5 max-w-[58ch] text-base leading-relaxed text-[var(--muted)] sm:text-lg">
@@ -44,7 +43,7 @@ export function HeroSection() {
           <div className="pointer-events-none absolute -bottom-5 -right-5 h-24 w-24 border-b-2 border-r-2 border-[color-mix(in_oklab,var(--brand)_58%,transparent)]" />
           <div className="overflow-hidden border border-[var(--line)] bg-[var(--surface)]">
             <Image
-              src="https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=1400&q=80"
+              src="/images/model-2.heic"
               alt="Studio portrait setup"
               width={900}
               height={1100}
