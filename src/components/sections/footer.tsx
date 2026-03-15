@@ -3,8 +3,8 @@ import { Container } from "@/components/ui/container";
 
 export function Footer() {
   return (
-    <footer className="border-t border-[var(--line)] bg-[var(--surface)] py-10">
-      <Container className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+    <footer className="border-t border-[var(--line)] bg-[var(--surface)] pt-10">
+      <Container className="grid gap-8 pb-8 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <p className="font-display text-3xl text-[var(--text)]">Lightstudio</p>
           <p className="mt-2 text-sm text-[var(--muted)]">Booking cepat untuk hasil foto studio yang clean, elegan, dan siap pakai.</p>
@@ -30,9 +30,12 @@ export function Footer() {
           <a href="#" className="inline-flex items-center gap-2 border-b border-transparent pb-0.5 transition hover:border-[var(--brand)]">
             <Instagram className="h-4 w-4" /> @lightstudio.id
           </a>
-          <p className="mt-5 text-xs">© {new Date().getFullYear()} Lightstudio. All rights reserved.</p>
         </div>
       </Container>
+
+      <div className="w-full border-t border-[var(--line)] py-4 text-center text-xs text-[var(--muted)]">
+        © 2026 Lightstudio. All rights reserved.
+      </div>
     </footer>
   );
 }
