@@ -18,7 +18,7 @@ export function PortfolioSection({ items }: PortfolioSectionProps) {
           <SectionHeading
             eyebrow="Portfolio"
             title="Kualitas yang bisa kamu lihat, bukan sekadar janji"
-            description="Kategori portfolio disesuaikan dengan daftar paket, jadi kamu bisa mengisi foto berdasarkan jenis layanan."
+            description="Hasil foto yang telah kami abadikan dari berbagai momen penting klien, ditangkap dengan pencahayaan yang terukur, warna yang natural, dan detail akhir yang siap digunakan untuk kebutuhan personal maupun profesional."
           />
 
           <Link
