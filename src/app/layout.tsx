@@ -15,9 +15,33 @@ const sans = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Lightstudio | Booking Foto Studio Cepat & Premium",
+  title: {
+    default: "Foto Studio Purwokerto | Lightstudio",
+    template: "%s | Lightstudio",
+  },
   description:
-    "Landing page Lightstudio untuk booking cepat, cek portofolio, dan lihat paket harga studio foto premium.",
+    "Lightstudio adalah foto studio Purwokerto untuk booking cepat via WhatsApp, lihat portfolio, dan cek paket foto studio lengkap.",
+  keywords: [
+    "Foto Studio Purwokerto",
+    "Lightstudio",
+    "Studio Foto Purwokerto",
+    "Booking Foto Studio",
+    "Paket Foto Purwokerto",
+  ],
+  openGraph: {
+    title: "Foto Studio Purwokerto | Lightstudio",
+    description:
+      "Lightstudio melayani foto studio Purwokerto: family, graduation, couple, maternity, dan group session.",
+    siteName: "Lightstudio",
+    locale: "id_ID",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Foto Studio Purwokerto | Lightstudio",
+    description:
+      "Booking foto studio Purwokerto lebih cepat di Lightstudio. Cek portfolio dan paket lengkap.",
+  },
 };
 
 export default function RootLayout({
