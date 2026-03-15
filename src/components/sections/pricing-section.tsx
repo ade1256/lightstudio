@@ -22,7 +22,7 @@ export function PricingSection() {
         <SectionHeading
           eyebrow="Paket Harga"
           title="Pilih kategori, lalu pilih paket"
-          description="Semua paket tetap lengkap, ditata lebih elegan biar cepat dipindai dan enak dibaca."
+          description="Semua paket tetap lengkap, disusun lebih rapi agar mudah dipahami dalam sekali lihat."
           align="center"
         />
 
