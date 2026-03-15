@@ -7,14 +7,17 @@ import { PricingSection } from "@/components/sections/pricing-section";
 import { ServicesSection } from "@/components/sections/services-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { TopNav } from "@/components/ui/top-nav";
+import { getPortfolioContent, getPricingContent } from "@/lib/cms-content";
 
-export default function Home() {
+export default async function Home() {
+  const [portfolioItems, pricingCatalog] = await Promise.all([getPortfolioContent(), getPricingContent()]);
+
   return (
     <main className="site-background overflow-x-clip text-[var(--text)]">
       <TopNav />
       <HeroSection />
-      <PortfolioSection />
-      <PricingSection />
+      <PortfolioSection items={portfolioItems} />
+      <PricingSection pricingCatalog={pricingCatalog} />
       <ServicesSection />
       <TestimonialsSection />
       <AboutSection />

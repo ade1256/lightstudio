@@ -2,10 +2,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { portfolioItems } from "@/data/site-data";
+import { PortfolioItem } from "@/types";
 
-export function PortfolioSection() {
-  const previewItems = portfolioItems.slice(0, 6);
+interface PortfolioSectionProps {
+  items: PortfolioItem[];
+}
+
+export function PortfolioSection({ items }: PortfolioSectionProps) {
+  const previewItems = items.slice(0, 6);
 
   return (
     <section id="portfolio" className="section-gradient-soft py-[clamp(4.2rem,8vw,7.5rem)]">

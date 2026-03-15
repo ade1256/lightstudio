@@ -1,10 +1,4 @@
-export type PortfolioCategory =
-  | "Photo Group"
-  | "Family Photo"
-  | "Graduation Package"
-  | "Special Session"
-  | "Maternity Photo Plan"
-  | "Outdoor Service";
+export type PortfolioCategory = string;
 
 export interface PortfolioItem {
   id: number;

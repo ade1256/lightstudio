@@ -4,16 +4,20 @@ import { useMemo, useState } from "react";
 import { Check, Sparkles } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { pricingCatalog } from "@/data/site-data";
+import { PackageCategory } from "@/types";
 
-export function PricingSection() {
+interface PricingSectionProps {
+  pricingCatalog: PackageCategory[];
+}
+
+export function PricingSection({ pricingCatalog }: PricingSectionProps) {
   const [activeCategory, setActiveCategory] = useState(
     pricingCatalog.find((group) => group.category === "Special Session")?.category ?? pricingCatalog[0]?.category ?? "",
   );
 
   const activeGroup = useMemo(
     () => pricingCatalog.find((group) => group.category === activeCategory) ?? pricingCatalog[0],
-    [activeCategory],
+    [activeCategory, pricingCatalog],
   );
 
   return (
