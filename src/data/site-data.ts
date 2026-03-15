@@ -19,7 +19,6 @@ export const portfolioCategories = [
 export const portfolioItems: PortfolioItem[] = [
   { id: 1, title: "Evening Ceremony", category: "Wedding", src: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80", alt: "Wedding portrait at sunset", width: 900, height: 1300 },
   { id: 2, title: "White Studio Portrait", category: "Studio Portrait", src: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&q=80", alt: "Minimal studio beauty portrait", width: 900, height: 1200 },
-  { id: 3, title: "Milestone Day", category: "Graduation", src: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80", alt: "Graduate celebrating", width: 1000, height: 700 },
   { id: 4, title: "Family Sunday", category: "Family", src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80", alt: "Warm family photo", width: 900, height: 1200 },
   { id: 5, title: "Hero Product", category: "Product Photography", src: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=80", alt: "Watch product close up", width: 1000, height: 800 },
   { id: 6, title: "Reception Mood", category: "Wedding", src: "https://images.unsplash.com/photo-1472653431158-6364773b2a56?auto=format&fit=crop&w=1200&q=80", alt: "Wedding first dance", width: 900, height: 1200 },
