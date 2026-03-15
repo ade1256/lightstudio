@@ -6,7 +6,9 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { pricingCatalog } from "@/data/site-data";
 
 export function PricingSection() {
-  const [activeCategory, setActiveCategory] = useState(pricingCatalog[0]?.category ?? "");
+  const [activeCategory, setActiveCategory] = useState(
+    pricingCatalog.find((group) => group.category === "Special Session")?.category ?? pricingCatalog[0]?.category ?? "",
+  );
 
   const activeGroup = useMemo(
     () => pricingCatalog.find((group) => group.category === activeCategory) ?? pricingCatalog[0],
