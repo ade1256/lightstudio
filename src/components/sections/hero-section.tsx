@@ -27,13 +27,13 @@ export function HeroSection() {
               href="#booking"
               className="rounded-full bg-[var(--brand)] px-7 py-3 text-sm font-semibold tracking-wide text-[var(--brand-ink)] transition hover:brightness-110"
             >
-Cek Jadwal & Booking
+Booking now
             </a>
             <a
-              href="#portfolio"
+              href="#pricing"
               className="rounded-full border border-[var(--line)] bg-[var(--surface)] px-7 py-3 text-sm font-medium tracking-wide text-[var(--text)] transition hover:border-[var(--brand)]"
             >
-              Lihat Portfolio
+              Lihat Harga
             </a>
           </div>
         </div>
