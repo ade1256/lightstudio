@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -19,7 +20,7 @@ export function TopNav() {
     <>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--line)] bg-[linear-gradient(180deg,color-mix(in_oklab,var(--surface)_82%,var(--brand)_18%),var(--surface))]/95 backdrop-blur-md">
         <div className="mx-auto flex max-w-[1180px] items-center justify-between gap-4 px-5 py-4 sm:px-8 lg:px-10">
-          <a href="#" className="flex items-center gap-2.5">
+          <Link href="/" className="flex items-center gap-2.5">
             <Image
               src="/logo/lightproduction-logo.png"
               alt="Lightstudio logo"
@@ -29,7 +30,7 @@ export function TopNav() {
               priority
             />
             <span className="font-display text-3xl">Lightstudio</span>
-          </a>
+          </Link>
 
           <nav className="hidden items-center gap-6 text-sm font-medium text-[var(--muted)] md:flex">
             {navItems.map((item) => (

@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useMemo, useState } from "react";
 import { TopNav } from "@/components/ui/top-nav";
 import { portfolioCategories, portfolioItems } from "@/data/site-data";
@@ -27,16 +26,7 @@ export default function PortfolioPage() {
             <div>
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-[var(--muted)]">Portfolio</p>
               <h1 className="mt-2 text-[clamp(2rem,5vw,4rem)] leading-[0.95]">Galeri lengkap Lightstudio</h1>
-              <p className="mt-3 max-w-2xl text-sm text-[var(--muted)] sm:text-base">
-                Masonry grid + filter kategori untuk memudahkan eksplorasi karya.
-              </p>
             </div>
-            <Link
-              href="/"
-              className="rounded-full border border-[var(--line)] bg-[var(--surface)] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.14em]"
-            >
-              Kembali ke home
-            </Link>
           </div>
 
           <div className="mb-6 flex flex-wrap gap-2.5">
