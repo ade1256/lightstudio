@@ -25,6 +25,7 @@ export default function CmsPage() {
 
   const [pricingEditId, setPricingEditId] = useState<string | null>(null);
   const [pricingForm, setPricingForm] = useState(emptyPricingForm);
+  const [seeding, setSeeding] = useState(false);
 
   async function loadData() {
     const [portfolioRes, pricingRes] = await Promise.all([fetch("/api/cms/portfolio"), fetch("/api/cms/pricing")]);
@@ -48,6 +49,19 @@ export default function CmsPage() {
 
     if (!res.ok) throw new Error("Request gagal. Cek CMS_ACCESS_KEY dan data.");
     return res.json();
+  }
+
+  async function seedAllToSanity() {
+    try {
+      setSeeding(true);
+      await request("/api/cms/seed", "POST");
+      await loadData();
+      alert("Seed berhasil: portfolio, pricing, services, testimonials sudah dikirim ke Sanity.");
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "Seed gagal");
+    } finally {
+      setSeeding(false);
+    }
   }
 
   async function savePortfolio(e: FormEvent) {
@@ -150,6 +164,17 @@ export default function CmsPage() {
           placeholder="CMS_ACCESS_KEY"
           className="mt-3 w-full border border-[var(--line)] bg-white px-3 py-2 text-sm"
         />
+
+        <div className="mt-3 flex flex-wrap gap-3">
+          <button
+            type="button"
+            onClick={seedAllToSanity}
+            className="rounded-md bg-[var(--brand)] px-4 py-2 text-sm font-semibold text-[var(--brand-ink)]"
+          >
+            {seeding ? "Seeding..." : "Seed semua data ke Sanity"}
+          </button>
+          <p className="self-center text-xs text-[var(--muted)]">Gunakan ini sekali untuk kirim data awal dari kode ke Sanity.</p>
+        </div>
       </section>
 
       <section className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5">
