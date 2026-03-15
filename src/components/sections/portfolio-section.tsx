@@ -29,16 +29,16 @@ export function PortfolioSection({ items }: PortfolioSectionProps) {
           </Link>
         </div>
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 columns-1 gap-3 sm:columns-2 lg:columns-3">
           {previewItems.map((item) => (
-            <article key={item.id} className="overflow-hidden border border-[var(--line)] bg-[var(--surface)]">
+            <article key={item.id} className="mb-3 break-inside-avoid overflow-hidden border border-[var(--line)] bg-[var(--surface)]">
               <Image
                 src={item.src}
                 alt={item.alt}
                 width={item.width}
                 height={item.height}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="h-48 w-full object-cover sm:h-52"
+                className="h-auto w-full object-cover"
               />
               <div className="flex items-center justify-between gap-3 px-3 py-2.5">
                 <p className="text-sm font-semibold text-[var(--text)]">{item.title}</p>
