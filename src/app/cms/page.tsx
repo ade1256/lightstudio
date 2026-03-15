@@ -1,165 +1,279 @@
 "use client";
+/* eslint-disable react-hooks/set-state-in-effect */
 
-import {FormEvent, useEffect, useState} from 'react'
+import { FormEvent, useEffect, useState } from "react";
 
-type PortfolioItem = {_id: string; title: string; category: string; imageUrl: string; alt: string; order: number}
-type PricingItem = {name: string; price: string; notes: string[]}
-type PricingCategory = {_id: string; category: string; order: number; items: PricingItem[]}
+type PortfolioItem = { _id: string; title: string; category: string; imageUrl: string; alt: string; order: number };
+type PricingItem = { name: string; price: string; notes: string[] };
+type PricingCategory = { _id: string; category: string; order: number; items: PricingItem[] };
 
-const emptyPortfolio = {title: '', category: 'Special Session', imageUrl: '', alt: '', order: 0}
-const emptyPricing = {category: '', order: 0, itemsText: '[]'}
+const emptyPortfolioForm = { title: "", category: "Special Session", imageUrl: "", alt: "", order: 0 };
+const emptyPricingItem = (): PricingItem => ({ name: "", price: "", notes: [""] });
+const emptyPricingForm = { category: "", order: 0, items: [emptyPricingItem()] };
 
 export default function CmsPage() {
-  const [cmsKey, setCmsKey] = useState('')
-  const [portfolio, setPortfolio] = useState<PortfolioItem[]>([])
-  const [pricing, setPricing] = useState<PricingCategory[]>([])
+  const [cmsKey, setCmsKey] = useState(() => (typeof window !== "undefined" ? localStorage.getItem("cms-key") || "" : ""));
+  const [portfolioList, setPortfolioList] = useState<PortfolioItem[]>([]);
+  const [pricingList, setPricingList] = useState<PricingCategory[]>([]);
 
-  const [portfolioForm, setPortfolioForm] = useState(emptyPortfolio)
-  const [portfolioEditId, setPortfolioEditId] = useState<string | null>(null)
+  const [portfolioEditId, setPortfolioEditId] = useState<string | null>(null);
+  const [portfolioForm, setPortfolioForm] = useState(emptyPortfolioForm);
 
-  const [pricingForm, setPricingForm] = useState(emptyPricing)
-  const [pricingEditId, setPricingEditId] = useState<string | null>(null)
+  const [pricingEditId, setPricingEditId] = useState<string | null>(null);
+  const [pricingForm, setPricingForm] = useState(emptyPricingForm);
 
   async function loadData() {
-    const [pRes, cRes] = await Promise.all([fetch('/api/cms/portfolio'), fetch('/api/cms/pricing')])
-    setPortfolio(await pRes.json())
-    setPricing(await cRes.json())
+    const [portfolioRes, pricingRes] = await Promise.all([fetch("/api/cms/portfolio"), fetch("/api/cms/pricing")]);
+    setPortfolioList(await portfolioRes.json());
+    setPricingList(await pricingRes.json());
   }
 
   useEffect(() => {
-    const saved = localStorage.getItem('cms-key')
-    if (saved) setCmsKey(saved)
-    loadData()
-  }, [])
+    loadData();
+  }, []);
 
-  async function send(url: string, method: 'POST' | 'PATCH' | 'DELETE', body?: unknown) {
+  async function request(url: string, method: "POST" | "PATCH" | "DELETE", body?: unknown) {
     const res = await fetch(url, {
       method,
-      headers: {'Content-Type': 'application/json', 'x-cms-key': cmsKey},
+      headers: {
+        "Content-Type": "application/json",
+        "x-cms-key": cmsKey,
+      },
       body: body ? JSON.stringify(body) : undefined,
-    })
-    if (!res.ok) throw new Error('Request gagal. Cek CMS key atau data input.')
-    return res.json()
+    });
+
+    if (!res.ok) throw new Error("Request gagal. Cek CMS_ACCESS_KEY dan data.");
+    return res.json();
   }
 
   async function savePortfolio(e: FormEvent) {
-    e.preventDefault()
+    e.preventDefault();
+
     if (portfolioEditId) {
-      await send(`/api/cms/portfolio/${portfolioEditId}`, 'PATCH', portfolioForm)
+      await request(`/api/cms/portfolio/${portfolioEditId}`, "PATCH", portfolioForm);
     } else {
-      await send('/api/cms/portfolio', 'POST', portfolioForm)
+      await request("/api/cms/portfolio", "POST", portfolioForm);
     }
-    setPortfolioEditId(null)
-    setPortfolioForm(emptyPortfolio)
-    await loadData()
+
+    setPortfolioEditId(null);
+    setPortfolioForm(emptyPortfolioForm);
+    await loadData();
   }
 
-  async function removePortfolio(id: string) {
-    await send(`/api/cms/portfolio/${id}`, 'DELETE')
-    await loadData()
+  async function deletePortfolio(id: string) {
+    await request(`/api/cms/portfolio/${id}`, "DELETE");
+    await loadData();
   }
 
   async function savePricing(e: FormEvent) {
-    e.preventDefault()
-    let parsedItems: PricingItem[] = []
-    try {
-      parsedItems = JSON.parse(pricingForm.itemsText)
-      if (!Array.isArray(parsedItems)) throw new Error('invalid')
-    } catch {
-      alert('Format items harus JSON array. Contoh: [{"name":"Couple","price":"Rp 150.000","notes":["10 edited"]}]')
-      return
-    }
+    e.preventDefault();
 
-    const payload = {category: pricingForm.category, order: Number(pricingForm.order || 0), items: parsedItems}
+    const payload = {
+      category: pricingForm.category,
+      order: Number(pricingForm.order || 0),
+      items: pricingForm.items.map((item) => ({
+        name: item.name,
+        price: item.price,
+        notes: item.notes.map((note) => note.trim()).filter(Boolean),
+      })),
+    };
 
     if (pricingEditId) {
-      await send(`/api/cms/pricing/${pricingEditId}`, 'PATCH', payload)
+      await request(`/api/cms/pricing/${pricingEditId}`, "PATCH", payload);
     } else {
-      await send('/api/cms/pricing', 'POST', payload)
+      await request("/api/cms/pricing", "POST", payload);
     }
 
-    setPricingEditId(null)
-    setPricingForm(emptyPricing)
-    await loadData()
+    setPricingEditId(null);
+    setPricingForm(emptyPricingForm);
+    await loadData();
   }
 
-  async function removePricing(id: string) {
-    await send(`/api/cms/pricing/${id}`, 'DELETE')
-    await loadData()
+  async function deletePricing(id: string) {
+    await request(`/api/cms/pricing/${id}`, "DELETE");
+    await loadData();
+  }
+
+  function setPricingItem(index: number, patch: Partial<PricingItem>) {
+    setPricingForm((prev) => {
+      const items = [...prev.items];
+      items[index] = { ...items[index], ...patch };
+      return { ...prev, items };
+    });
+  }
+
+  function setPricingNote(itemIndex: number, noteIndex: number, value: string) {
+    setPricingForm((prev) => {
+      const items = [...prev.items];
+      const notes = [...items[itemIndex].notes];
+      notes[noteIndex] = value;
+      items[itemIndex] = { ...items[itemIndex], notes };
+      return { ...prev, items };
+    });
   }
 
   return (
-    <main className="mx-auto max-w-6xl space-y-10 px-5 py-8 sm:px-8">
-      <h1 className="text-3xl font-semibold">CMS Lightstudio (Sanity API)</h1>
+    <main className="mx-auto max-w-7xl space-y-8 px-5 py-8 sm:px-8">
+      <header className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5">
+        <h1 className="text-3xl font-semibold text-[var(--text)]">Dashboard CMS Lightstudio</h1>
+        <p className="mt-2 text-sm text-[var(--muted)]">Kelola portfolio dan paket harga langsung ke Sanity API tanpa edit kode.</p>
+      </header>
 
-      <section className="space-y-3 border p-4">
-        <h2 className="text-xl font-semibold">Akses CMS</h2>
+      <section className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5">
+        <h2 className="text-lg font-semibold text-[var(--text)]">Akses Dashboard</h2>
+        <p className="mt-1 text-sm text-[var(--muted)]">Masukkan CMS key, lalu key akan disimpan di browser ini.</p>
         <input
           value={cmsKey}
           onChange={(e) => setCmsKey(e.target.value)}
-          onBlur={() => localStorage.setItem('cms-key', cmsKey)}
-          placeholder="Masukkan CMS_ACCESS_KEY"
-          className="w-full border px-3 py-2"
+          onBlur={() => localStorage.setItem("cms-key", cmsKey)}
+          placeholder="CMS_ACCESS_KEY"
+          className="mt-3 w-full border border-[var(--line)] bg-white px-3 py-2 text-sm"
         />
       </section>
 
-      <section className="space-y-4 border p-4">
-        <h2 className="text-xl font-semibold">CRUD Portfolio</h2>
-        <form onSubmit={savePortfolio} className="grid gap-2 md:grid-cols-6">
-          <input className="border px-3 py-2" placeholder="Title" value={portfolioForm.title} onChange={(e) => setPortfolioForm({...portfolioForm, title: e.target.value})} />
-          <input className="border px-3 py-2" placeholder="Category" value={portfolioForm.category} onChange={(e) => setPortfolioForm({...portfolioForm, category: e.target.value})} />
-          <input className="border px-3 py-2" placeholder="Image URL" value={portfolioForm.imageUrl} onChange={(e) => setPortfolioForm({...portfolioForm, imageUrl: e.target.value})} />
-          <input className="border px-3 py-2" placeholder="Alt text" value={portfolioForm.alt} onChange={(e) => setPortfolioForm({...portfolioForm, alt: e.target.value})} />
-          <input type="number" className="border px-3 py-2" placeholder="Order" value={portfolioForm.order} onChange={(e) => setPortfolioForm({...portfolioForm, order: Number(e.target.value)})} />
-          <button className="border bg-black px-3 py-2 text-white">{portfolioEditId ? 'Update' : 'Tambah'}</button>
+      <section className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5">
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <h2 className="text-xl font-semibold text-[var(--text)]">Manajemen Portfolio</h2>
+          <span className="text-xs text-[var(--muted)]">{portfolioList.length} item</span>
+        </div>
+
+        <form onSubmit={savePortfolio} className="grid gap-3 md:grid-cols-6">
+          <input className="border border-[var(--line)] px-3 py-2 text-sm" placeholder="Judul foto" value={portfolioForm.title} onChange={(e) => setPortfolioForm({ ...portfolioForm, title: e.target.value })} />
+          <input className="border border-[var(--line)] px-3 py-2 text-sm" placeholder="Kategori" value={portfolioForm.category} onChange={(e) => setPortfolioForm({ ...portfolioForm, category: e.target.value })} />
+          <input className="border border-[var(--line)] px-3 py-2 text-sm" placeholder="URL gambar" value={portfolioForm.imageUrl} onChange={(e) => setPortfolioForm({ ...portfolioForm, imageUrl: e.target.value })} />
+          <input className="border border-[var(--line)] px-3 py-2 text-sm" placeholder="Alt text" value={portfolioForm.alt} onChange={(e) => setPortfolioForm({ ...portfolioForm, alt: e.target.value })} />
+          <input type="number" className="border border-[var(--line)] px-3 py-2 text-sm" placeholder="Urutan" value={portfolioForm.order} onChange={(e) => setPortfolioForm({ ...portfolioForm, order: Number(e.target.value) })} />
+          <button className="rounded-md bg-[var(--text)] px-3 py-2 text-sm font-semibold text-white">{portfolioEditId ? "Update" : "Tambah"}</button>
         </form>
 
-        <div className="space-y-2">
-          {portfolio.map((item) => (
-            <div key={item._id} className="flex items-center justify-between border px-3 py-2 text-sm">
-              <span>{item.title} · {item.category}</span>
+        <div className="mt-4 space-y-2">
+          {portfolioList.map((item) => (
+            <div key={item._id} className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-[var(--line)] px-3 py-2 text-sm">
+              <p className="text-[var(--text)]">{item.title} · {item.category}</p>
               <div className="space-x-3">
-                <button onClick={() => {setPortfolioEditId(item._id); setPortfolioForm({title: item.title, category: item.category, imageUrl: item.imageUrl, alt: item.alt, order: item.order})}}>
+                <button
+                  onClick={() => {
+                    setPortfolioEditId(item._id);
+                    setPortfolioForm({ title: item.title, category: item.category, imageUrl: item.imageUrl, alt: item.alt, order: item.order });
+                  }}
+                  className="font-medium text-[var(--text)]"
+                >
                   Edit
                 </button>
-                <button onClick={() => removePortfolio(item._id)} className="text-red-600">Hapus</button>
+                <button onClick={() => deletePortfolio(item._id)} className="font-medium text-red-600">Hapus</button>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="space-y-4 border p-4">
-        <h2 className="text-xl font-semibold">CRUD Paket Harga</h2>
-        <form onSubmit={savePricing} className="grid gap-2">
-          <div className="grid gap-2 md:grid-cols-3">
-            <input className="border px-3 py-2" placeholder="Nama kategori" value={pricingForm.category} onChange={(e) => setPricingForm({...pricingForm, category: e.target.value})} />
-            <input type="number" className="border px-3 py-2" placeholder="Order" value={pricingForm.order} onChange={(e) => setPricingForm({...pricingForm, order: Number(e.target.value)})} />
-            <button className="border bg-black px-3 py-2 text-white">{pricingEditId ? 'Update' : 'Tambah'} Kategori</button>
+      <section className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5">
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <h2 className="text-xl font-semibold text-[var(--text)]">Manajemen Paket Harga</h2>
+          <span className="text-xs text-[var(--muted)]">{pricingList.length} kategori</span>
+        </div>
+
+        <form onSubmit={savePricing} className="space-y-4">
+          <div className="grid gap-3 md:grid-cols-3">
+            <input className="border border-[var(--line)] px-3 py-2 text-sm" placeholder="Nama kategori" value={pricingForm.category} onChange={(e) => setPricingForm({ ...pricingForm, category: e.target.value })} />
+            <input type="number" className="border border-[var(--line)] px-3 py-2 text-sm" placeholder="Urutan" value={pricingForm.order} onChange={(e) => setPricingForm({ ...pricingForm, order: Number(e.target.value) })} />
+            <button className="rounded-md bg-[var(--text)] px-3 py-2 text-sm font-semibold text-white">{pricingEditId ? "Update Kategori" : "Tambah Kategori"}</button>
           </div>
 
-          <textarea
-            className="min-h-40 border px-3 py-2 font-mono text-sm"
-            value={pricingForm.itemsText}
-            onChange={(e) => setPricingForm({...pricingForm, itemsText: e.target.value})}
-            placeholder='JSON items: [{"name":"Couple Photo","price":"Rp 150.000","notes":["10 edited"]}]'
-          />
+          <div className="space-y-3">
+            {pricingForm.items.map((item, itemIndex) => (
+              <div key={`item-${itemIndex}`} className="rounded-lg border border-[var(--line)] bg-white p-3">
+                <div className="grid gap-2 md:grid-cols-[1fr_220px_auto]">
+                  <input
+                    className="border border-[var(--line)] px-3 py-2 text-sm"
+                    placeholder="Nama paket"
+                    value={item.name}
+                    onChange={(e) => setPricingItem(itemIndex, { name: e.target.value })}
+                  />
+                  <input
+                    className="border border-[var(--line)] px-3 py-2 text-sm"
+                    placeholder="Harga (contoh: Rp 150.000)"
+                    value={item.price}
+                    onChange={(e) => setPricingItem(itemIndex, { price: e.target.value })}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setPricingForm((prev) => ({ ...prev, items: prev.items.filter((_, idx) => idx !== itemIndex) || [emptyPricingItem()] }))}
+                    className="rounded-md border border-red-200 px-3 py-2 text-sm text-red-600"
+                  >
+                    Hapus paket
+                  </button>
+                </div>
+
+                <div className="mt-3 space-y-2">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--muted)]">Detail paket</p>
+                  {item.notes.map((note, noteIndex) => (
+                    <div key={`note-${itemIndex}-${noteIndex}`} className="grid gap-2 md:grid-cols-[1fr_auto]">
+                      <input
+                        className="border border-[var(--line)] px-3 py-2 text-sm"
+                        placeholder="Contoh: 10 edited photo"
+                        value={note}
+                        onChange={(e) => setPricingNote(itemIndex, noteIndex, e.target.value)}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setPricingItem(itemIndex, { notes: item.notes.filter((_, idx) => idx !== noteIndex) || [""] })}
+                        className="rounded-md border border-red-200 px-3 py-2 text-sm text-red-600"
+                      >
+                        Hapus detail
+                      </button>
+                    </div>
+                  ))}
+
+                  <button
+                    type="button"
+                    onClick={() => setPricingItem(itemIndex, { notes: [...item.notes, ""] })}
+                    className="rounded-md border border-[var(--line)] px-3 py-2 text-sm"
+                  >
+                    + Tambah detail
+                  </button>
+                </div>
+              </div>
+            ))}
+
+            <button
+              type="button"
+              onClick={() => setPricingForm((prev) => ({ ...prev, items: [...prev.items, emptyPricingItem()] }))}
+              className="rounded-md border border-[var(--line)] bg-white px-3 py-2 text-sm"
+            >
+              + Tambah paket baru
+            </button>
+          </div>
         </form>
 
-        <div className="space-y-2">
-          {pricing.map((item) => (
-            <div key={item._id} className="flex items-center justify-between border px-3 py-2 text-sm">
-              <span>{item.category} · {item.items?.length || 0} paket</span>
+        <div className="mt-5 space-y-2">
+          {pricingList.map((category) => (
+            <div key={category._id} className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-[var(--line)] px-3 py-2 text-sm">
+              <p className="text-[var(--text)]">{category.category} · {category.items?.length || 0} paket</p>
               <div className="space-x-3">
-                <button onClick={() => {setPricingEditId(item._id); setPricingForm({category: item.category, order: item.order, itemsText: JSON.stringify(item.items || [], null, 2)})}}>
+                <button
+                  onClick={() => {
+                    setPricingEditId(category._id);
+                    setPricingForm({
+                      category: category.category,
+                      order: category.order,
+                      items: (category.items?.length ? category.items : [emptyPricingItem()]).map((it) => ({
+                        name: it.name || "",
+                        price: it.price || "",
+                        notes: it.notes?.length ? it.notes : [""],
+                      })),
+                    });
+                  }}
+                  className="font-medium text-[var(--text)]"
+                >
                   Edit
                 </button>
-                <button onClick={() => removePricing(item._id)} className="text-red-600">Hapus</button>
+                <button onClick={() => deletePricing(category._id)} className="font-medium text-red-600">Hapus</button>
               </div>
             </div>
           ))}
         </div>
       </section>
     </main>
-  )
+  );
 }
