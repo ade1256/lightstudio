@@ -9,21 +9,22 @@ export const navLinks = [
 
 export const portfolioCategories = [
   "All",
-  "Wedding",
-  "Graduation",
-  "Family",
-  "Studio Portrait",
-  "Product Photography",
+  "Photo Group",
+  "Family Photo",
+  "Graduation Package",
+  "Special Session",
+  "Maternity Photo Plan",
+  "Outdoor Service",
 ] as const;
 
 export const portfolioItems: PortfolioItem[] = [
-  { id: 1, title: "Evening Ceremony", category: "Wedding", src: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80", alt: "Wedding portrait at sunset", width: 900, height: 1300 },
-  { id: 2, title: "White Studio Portrait", category: "Studio Portrait", src: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&q=80", alt: "Minimal studio beauty portrait", width: 900, height: 1200 },
-  { id: 4, title: "Family Sunday", category: "Family", src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80", alt: "Warm family photo", width: 900, height: 1200 },
-  { id: 5, title: "Hero Product", category: "Product Photography", src: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=80", alt: "Watch product close up", width: 1000, height: 800 },
-  { id: 6, title: "Reception Mood", category: "Wedding", src: "https://images.unsplash.com/photo-1472653431158-6364773b2a56?auto=format&fit=crop&w=1200&q=80", alt: "Wedding first dance", width: 900, height: 1200 },
-  { id: 7, title: "Studio Graduation", category: "Graduation", src: "https://images.unsplash.com/photo-1627556592933-ffe99c1cd9eb?auto=format&fit=crop&w=1200&q=80", alt: "Graduation portrait", width: 1000, height: 1300 },
-  { id: 8, title: "Sibling Story", category: "Family", src: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=1200&q=80", alt: "Family siblings in studio", width: 1000, height: 700 },
+  { id: 1, title: "The Circle Session", category: "Photo Group", src: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80", alt: "Group photo session", width: 900, height: 1300 },
+  { id: 2, title: "Couple Indoor Set", category: "Special Session", src: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&q=80", alt: "Couple studio portrait", width: 900, height: 1200 },
+  { id: 4, title: "Premium Family", category: "Family Photo", src: "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80", alt: "Family photo in studio", width: 900, height: 1200 },
+  { id: 5, title: "Outdoor Group", category: "Outdoor Service", src: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=80", alt: "Outdoor portrait sample", width: 1000, height: 800 },
+  { id: 6, title: "Birthday Session", category: "Special Session", src: "https://images.unsplash.com/photo-1472653431158-6364773b2a56?auto=format&fit=crop&w=1200&q=80", alt: "Birthday photo setup", width: 900, height: 1200 },
+  { id: 7, title: "Graduation Master", category: "Graduation Package", src: "https://images.unsplash.com/photo-1627556592933-ffe99c1cd9eb?auto=format&fit=crop&w=1200&q=80", alt: "Graduation package sample", width: 1000, height: 1300 },
+  { id: 8, title: "Maternity Journey", category: "Maternity Photo Plan", src: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=1200&q=80", alt: "Maternity portrait sample", width: 1000, height: 700 },
 ];
 
 export const services: Service[] = [
