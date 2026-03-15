@@ -1,4 +1,5 @@
 import {createClient} from '@sanity/client'
+import {isValidDashboardSession} from '@/lib/dashboard-auth'
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
@@ -24,8 +25,22 @@ export const sanityWriteClient = createClient({
   token: process.env.SANITY_API_WRITE_TOKEN,
 })
 
+function getCookieValue(cookieHeader: string | null, key: string) {
+  if (!cookieHeader) return null
+  const parts = cookieHeader.split(';').map((p) => p.trim())
+  for (const part of parts) {
+    if (part.startsWith(`${key}=`)) return decodeURIComponent(part.slice(key.length + 1))
+  }
+  return null
+}
+
 export function assertCmsAccess(req: Request) {
   const key = req.headers.get('x-cms-key')
   const expected = process.env.CMS_ACCESS_KEY
-  return Boolean(expected && key && key === expected)
+  const cookieToken = getCookieValue(req.headers.get('cookie'), 'dashboard_session')
+
+  const keyValid = Boolean(expected && key && key === expected)
+  const sessionValid = isValidDashboardSession(cookieToken)
+
+  return keyValid || sessionValid
 }
