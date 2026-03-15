@@ -1,5 +1,6 @@
 import {PortfolioItem, PackageCategory} from '@/types'
-import {portfolioItems as fallbackPortfolio, pricingCatalog as fallbackPricing} from '@/data/site-data'
+import {portfolioItems as fallbackPortfolio} from '@/data/site-data'
+import {sanityPricingCatalogSeed as fallbackPricing} from '@/sanity/data/pricingCatalog'
 import {sanityReadClient} from '@/lib/sanity'
 
 function hasSanityConfig() {
