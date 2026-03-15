@@ -29,28 +29,28 @@ export const portfolioItems: PortfolioItem[] = [
 
 export const services: Service[] = [
   {
-    title: "Portrait Session",
-    description: "Sesi personal dengan arahan pose dan pencahayaan yang clean, cocok untuk personal branding atau hadiah.",
+    title: "Photo Group",
+    description: "Paket untuk 2 sampai 45 orang (EL Starter, The Circle, The Squad) dengan output edit + cetak + file Google Drive.",
     icon: "Camera",
   },
   {
-    title: "Wedding Coverage",
-    description: "Dokumentasi hari pernikahan dengan gaya sinematik yang tetap natural dan emosional.",
+    title: "Family & Couple",
+    description: "Sesi family, couple, birthday, dan personal dengan durasi ringkas, opsi background, serta paket print sesuai kebutuhan.",
     icon: "Heart",
   },
   {
-    title: "Graduation Session",
-    description: "Foto wisuda formal dan candid dalam satu alur sesi yang efisien.",
+    title: "Graduation Package",
+    description: "Pilihan Elite, Master, Grandmaster, hingga Graduation Highschool dengan opsi cetak 8R/12R/16R dan kapasitas grup berbeda.",
     icon: "GraduationCap",
   },
   {
-    title: "Family Session",
-    description: "Sesi keluarga yang hangat, diarahkan agar tetap nyaman untuk anak maupun orang tua.",
+    title: "Maternity & Pass Photo",
+    description: "Maternity Prologue/Journey dan pass photo Chapter Career/Chapter Two untuk kebutuhan personal maupun dokumen resmi.",
     icon: "Sparkles",
   },
   {
-    title: "Product Shoot",
-    description: "Visual produk yang tajam dan premium untuk katalog, ads, dan social commerce.",
+    title: "Outdoor & Studio Rent",
+    description: "Layanan group outdoor per person serta sewa studio per jam lengkap fasilitas studio (tanpa kamera).",
     icon: "Package",
   },
 ];
