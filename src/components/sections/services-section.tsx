@@ -11,8 +11,8 @@ export function ServicesSection() {
       <Container>
         <SectionHeading
           eyebrow="Layanan"
-          title="Sesi yang dirancang sesuai tujuan visualmu"
-          description="Bukan paket generik. Tiap layanan disusun supaya output foto tepat untuk kebutuhan pribadi atau bisnis."
+          title="Pilih sesi terbaik untuk momen yang ingin kamu abadikan"
+          description="Setiap layanan dirancang agar kamu dapat hasil foto yang lebih meyakinkan, lebih berkelas, dan siap dipakai untuk kebutuhan personal, keluarga, maupun bisnis."
         />
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
