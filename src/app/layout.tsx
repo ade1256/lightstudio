@@ -51,6 +51,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className="scroll-smooth">
+     <head>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap" rel="stylesheet" />
+     </head>
       <body className={`${display.variable} ${sans.variable} antialiased`}>{children}</body>
     </html>
   );

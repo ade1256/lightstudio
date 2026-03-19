@@ -29,7 +29,7 @@ export function TopNav() {
               className="h-[34px] w-[34px] object-contain"
               priority
             />
-            <span className="font-display text-3xl">Lightstudio</span>
+            <span className="font-display text-xl text-logo">LightStudio</span>
           </Link>
 
           <nav className="hidden items-center gap-6 text-sm font-medium text-[var(--muted)] md:flex">
